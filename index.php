@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $dbhost = "localhost";
 $dbuser = "root";
@@ -9,6 +9,25 @@ $num_sem=4;
 
 $conn = mysql_connect($dbhost, $dbuser, $dbpass) or die ('Error connecting to mysql');
 mysql_select_db($dbname);
+
+$query="CREATE TABLE IF NOT EXISTS `classes` (
+  `CID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Department` varchar(255) NOT NULL,
+  `Number` int NOT NULL,
+  PRIMARY KEY (`CID`)
+);";
+$result = mysql_query($query) or die('Error, create table classes failed');
+
+$query="CREATE TABLE IF NOT EXISTS `enrollments` (
+  `EID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `CID` int(10) unsigned NOT NULL,
+  `user_email` varchar(255) NOT NULL,
+  `Semester` varchar(255) NOT NULL,
+  PRIMARY KEY (`EID`),
+  FOREIGN KEY (CID) REFERENCES classes(CID)
+);";
+$result = mysql_query($query) or die('Error, create table enrollments failed');
+
 //TODO Replace BY SELECT TOP 4 dates....
 $dates=array(
  '2013-08-15',
@@ -16,7 +35,6 @@ $dates=array(
  '2014-08-15',
  '2015-01-15'
 );
-
 
 for($i=0;$i<$num_sem;$i++){
     $query = "SELECT * 

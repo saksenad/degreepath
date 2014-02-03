@@ -9,7 +9,7 @@ $num_sem=4;
 
 $conn = mysql_connect($dbhost, $dbuser, $dbpass) or die ('Error connecting to mysql');
 mysql_select_db($dbname);
-//TODO Replace BY SELECT TOP 4 dates....
+//TODO Replace BY SELECT TOP num_sem dates....
 $dates=array(
  '2013-08-15',
  '2014-01-15',
@@ -31,10 +31,10 @@ for($i=0;$i<$num_sem;$i++){
     }
     else {
         while ($row = mysql_fetch_array($result)) {
-            $column[$i] .= '<li id="entry_' . $row['Department'].$row['Number'] . '" class="ui-state-default">' .  $row['Department']." ".$row['Number'] . '</li>';
+            $column[$i] .= '<slot id="entry_' . $row['Department'].$row['Number'] . '" class="ui-state-default" data-cid="'.$row['CID'].'">' .  $row['Department']." ".$row['Number'] . '</slot>';
+            $semester[$i]=$row["Semester"];
         }
     }
-
 }
 
 
@@ -48,17 +48,46 @@ for($i=0;$i<$num_sem;$i++){
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
 
 <style type="text/css">
-    #sortable0, #sortable1, #sortable2, #sortable3{ width:48%; min-height:400px; border:1px solid #ccc; background:#f3f3f3;list-style-type: none; margin: 0; padding: 0; float: left; margin-right: 10px; }
-    #sortable0 li, #sortable1 li, #sortable2 li, #sortable3 li { display:block; background:#e3e3e3; cursor:move;margin: 0 5px 5px 5px; padding: 5px; font-size: 1.2em;}
+    
+    body {background-color:#0E5FAB;font-family:"Myriad Pro";color:#ffffff}
+    #pending{ width:20%; min-height:100%; border:1px solid #ccc; background:#B9D5E7;list-style-type: none; margin: 0; padding: 0; float: left; margin-right: 10px; }
+    #pending slot { display:block; color:#ffffff; background:#232C39; text-align:center; border-radius:10px; cursor:move;margin: 5px 5px 5px 5px; padding: 5px; font-size: 1.2em;font-family:"Myriad Pro";}
+
+    #sortable0, #sortable1, #sortable2, #sortable3{ width:25%; min-height:250px; border:1px solid #ccc; background:#232C39; border-radius:5px; list-style-type: none; margin: 5; padding: 0; float: left; margin-right: 10px; }
+    #sortable0 slot, #sortable1 slot, #sortable2 slot, #sortable3 slot { display:block; color:#ffffff; background:#637CA1; text-align:center; border-radius:10px; cursor:move;margin: 5px 5px 5px 5px; padding: 5px; font-size: 1.2em;font-family:"Myriad Pro";}
 </style>
 </head>
 <body>
 
-<p class="success" style="display:none;">Success</p>
-
 <?php
+
+
+echo '<h1 align="center"> YOUR MOMS DEGREEPATH </h1>';
+echo '<ul id="pending" class="connectedSortable">';
+    echo '<h1 align="center"> PENDING </h1>';
+
+$query = "SELECT * 
+    FROM enrollments
+    INNER JOIN classes ON classes.CID = enrollments.CID
+    WHERE enrollments.user_email =  '".$user_email."'
+    AND enrollments.Semester =  '0000-00-00';";
+    $result = mysql_query($query) or die('Error, query failed');
+
+    if (mysql_num_rows($result) == 0) { 
+        $pending = '';
+    }
+    else {
+        while ($row = mysql_fetch_array($result)) {
+            $pending .= '<slot id="entry_' . $row['Department'].$row['Number'] . '" class="ui-state-default" data-cid="'.$row['CID'].'">' .  $row['Department']." ".$row['Number'] . '</slot>';
+        }
+    }
+
+echo $pending;
+
+echo '</ul>';
+
 for($i=0;$i<$num_sem;$i++){
-    echo '<ul id="sortable'.$i.'" class="connectedSortable">';
+    echo '<ul id="sortable'.$i.'" class="connectedSortable" data-semester="'.$semester[$i].'" >';
         echo $column[$i];
     echo '</ul>';
 }
@@ -67,23 +96,26 @@ for($i=0;$i<$num_sem;$i++){
 <script type="text/javascript">
 $(function() 
 {
-    $('#sortable0, #sortable1, #sortable2, #sortable3').sortable(
+    $('#pending, #sortable0, #sortable1, #sortable2, #sortable3').sortable(
     {
         connectWith: '.connectedSortable',
         receive: function(event, ui) {
+            console.log(this);
          $.ajax(
             {
                 type: "POST",
-                url: "draggable.php",
+                url: "classShiftedAJAX.php",
                 data: 
                 {
-                    reciever:this.id,
-                    cls:ui.item.html(),
-                    sender:ui.sender.attr("id")
+                    
+                    receiver:this.getAttribute("data-semester"),
+                    user:'<?php echo $user_email?>',
+                    classId:ui.item.attr("data-cid"),
+                    sender:ui.sender.attr("data-semester")
                 },
                 success: function(html)
                 {
-                    $('.success').fadeIn(500);
+                    alert(html);
                 }
 
             });
@@ -91,6 +123,5 @@ $(function()
     }).disableSelection();
 });
 </script>
-
 </body>
 </html>

@@ -18,7 +18,16 @@ SET Semester='".$newSemester."'
 WHERE user_email='".$user_email."' AND CID=".$cid." AND Semester='".$oldSemester."';";
 mysql_query($query) or die('Error, INSERT failed!');
 
+$query="SELECT Semester,CID FROM enrollments WHERE CID IN 
+(SELECT PreRequisite_CID FROM Prerequisites WHERE CID=".$cid.")
+AND user_email='".$user_email."';"
+$result = mysql_query($query) or die('Error, query failed');
+
 echo "Success";
 
+
+(SELECT Semester,CID FROM enrollments WHERE CID IN 
+(SELECT PreRequisite_CID FROM Prerequisites WHERE CID=23)
+AND user_email='vercetti21@gmail.com') AND Semester<'2014-08-15';
 
 ?>

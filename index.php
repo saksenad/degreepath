@@ -36,6 +36,11 @@ $dates=array(
  '2014-08-15',
  '2015-01-15'
 );
+$semName=array(
+    "Aug"=>"Fall ",
+    "Jan"=>"Spring "
+);
+
 
 for($i=0;$i<$num_sem;$i++){
     $query = "SELECT * 
@@ -72,7 +77,7 @@ for($i=0;$i<$num_sem;$i++){
     #pending{ width:20%; min-height:100%; border:1px solid #ccc; background:#B9D5E7;list-style-type: none; margin: 0; padding: 0; float: left; margin-right: 10px; }
     #pending slot { display:block; color:#ffffff; background:#232C39; text-align:center; border-radius:10px; cursor:move;margin: 5px 5px 5px 5px; padding: 5px; font-size: 1.2em;font-family:"Myriad Pro";}
 
-    #sortable0, #sortable1, #sortable2, #sortable3{ width:25%; min-height:250px; border:1px solid #ccc; background:#232C39; border-radius:5px; list-style-type: none; margin: 5; padding: 0; float: left; margin-right: 10px; }
+    #sortable0, #sortable1, #sortable2, #sortable3{ width:25%; min-height:350px; border:1px solid #ccc; background:#232C39; border-radius:5px; list-style-type: none; margin: 5; padding: 0; float: left; margin-right: 10px; }
     #sortable0 slot, #sortable1 slot, #sortable2 slot, #sortable3 slot { display:block; color:#ffffff; background:#637CA1; text-align:center; border-radius:10px; cursor:move;margin: 5px 5px 5px 5px; padding: 5px; font-size: 1.2em;font-family:"Myriad Pro";}
 </style>
 </head>
@@ -81,9 +86,9 @@ for($i=0;$i<$num_sem;$i++){
 <?php
 
 
-echo '<h1 align="center"> YOUR MOMS DEGREEPATH </h1>';
-echo '<ul id="pending" class="connectedSortable">';
-    echo '<h1 align="center"> PENDING </h1>';
+echo '<h1 align="center"> YOUR DEGREEPATH </h1>';
+echo '<ul id="pending" class="connectedSortable" data-semester="0000-00-00">';
+echo '<h1 align="center"> PENDING </h1>';
 
 $query = "SELECT * 
     FROM enrollments
@@ -107,6 +112,7 @@ echo '</ul>';
 
 for($i=0;$i<$num_sem;$i++){
     echo '<ul id="sortable'.$i.'" class="connectedSortable" data-semester="'.$semester[$i].'" >';
+        echo "<h1> ".$semName[date('M',strtotime($semester[$i]))]." ".date('Y',strtotime($semester[$i]))."</h1> ";
         echo $column[$i];
     echo '</ul>';
 }
@@ -125,8 +131,7 @@ $(function()
                 type: "POST",
                 url: "classShiftedAJAX.php",
                 data: 
-                {
-                    
+                {  
                     receiver:this.getAttribute("data-semester"),
                     user:'<?php echo $user_email?>',
                     classId:ui.item.attr("data-cid"),

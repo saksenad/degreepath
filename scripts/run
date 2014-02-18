@@ -1,0 +1,6 @@
+#!/bin/bash
+
+mysql -u root -p < create_tables.sql
+python buzzapi_scraper.py
+python insert_buzzapi_data.py
+mysql -u root -p < fake_data.sql

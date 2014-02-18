@@ -12,6 +12,7 @@ $newSemester=$_POST['receiver'];
 $cid=$_POST['classId'];
 $oldSemester=$_POST['sender'];
 $user_email=$_POST['user'];
+$classesToBeRed=array();
 
 //Updating Movement in DataBase to store pattern
 $query="UPDATE enrollments
@@ -26,9 +27,13 @@ AND user_email='".$user_email."');";
 $result = mysql_query($query) or die('Error, query failed');
 
 if (mysql_num_rows($result) != 0) { 
-	echo "Prerequisites check failed";
-	echo "for class ".$cid;//CID of the class whose prereq is not fullfilled and should become red
-
+	//echo "Prerequisites check failed";
+	//echo "for class ".$cid;//CID of the class whose prereq is not fullfilled and should become red
+	$query2="SELECT * FROM classes WHERE CID=".$cid.";";
+	$result2 = mysql_query($query2) or die('Error, query failed');
+	while($row = mysql_fetch_array($result2)){
+		array_push($classesToBeRed,"#entry_".$row["Department"].$row["Number"]);
+	}
 	//Update PreReqsCleared to persist redness
 	$query="UPDATE enrollments 
 	SET PreReqsCleared=0
@@ -49,7 +54,7 @@ AND user_email='".$user_email."');";
 $result = mysql_query($query) or die('Error, query failed');
 
 if (mysql_num_rows($result) != 0) { 
-	echo "Prerequisites check failed|||||||";
+	//echo "Prerequisites check failed|||||||";
 	while($row = mysql_fetch_array($result)){
 		$query="UPDATE enrollments 
 		SET PreReqsCleared=0
@@ -58,5 +63,6 @@ if (mysql_num_rows($result) != 0) {
 	}
 }   
 
+echo json_encode($classesToBeRed);
 
 ?>

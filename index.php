@@ -70,7 +70,8 @@ for($i=0;$i<$num_sem;$i++){
 <title>DegreePath</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
-
+<?php
+/*
 <style type="text/css">
     
     body {background-color:#0E5FAB;font-family:"Myriad Pro";color:#ffffff}
@@ -79,6 +80,84 @@ for($i=0;$i<$num_sem;$i++){
 
     #sortable0, #sortable1, #sortable2, #sortable3{ width:25%; min-height:350px; border:1px solid #ccc; background:#232C39; border-radius:5px; list-style-type: none; margin: 5; padding: 0; float: left; margin-right: 10px; }
     #sortable0 slot, #sortable1 slot, #sortable2 slot, #sortable3 slot { display:block; color:#ffffff; background:#637CA1; text-align:center; border-radius:10px; cursor:move;margin: 5px 5px 5px 5px; padding: 5px; font-size: 1.2em;font-family:"Myriad Pro";}
+    
+</style>
+*/?>
+
+
+<style type="text/css">
+    h1 {
+    font-weight:100;
+    font-size: 48px;
+    font:Myriad Pro;
+    color:#262626;
+    text-shadow: 1px 1px 5px rgb(100,100,100);
+}
+    h2 {
+    font-weight:lighter;
+    font-size: 26px;
+    font:Myriad Pro;
+    color: #FFFCE6;
+    text-shadow:1px 1px 5px #000000;
+}
+    body {
+    background-image:url(board.jpg);
+    background-size:cover;
+    font-family:"Myriad Pro";
+    color:#FFFCE6
+}
+    #pending{
+    width:23%;
+    min-height:90%;
+    border:2px solid #aaa;
+    border-radius:5px;
+    background:rgba(21,12,6, 0.5);
+    list-style-type: none;
+    margin: 5;
+    padding: 0;
+    float: left;
+    margin-right: 15px;
+    margin-left:25px;
+}
+    #pending slot {
+    display:block;
+    color:#ffffff;
+    background: linear-gradient( 180deg, rgba(185,213,231, 0.8), rgba(185,213,231, 0.8)) 70%, rgba(185,213,231,0.3);
+    text-align:center;
+    border-radius:5px;
+    cursor:none;
+    margin: 5px 5px 5px 5px;
+    padding: 5px;
+    font-size: 1.2em;
+    font-family:"Myriad Pro";
+    text-shadow:1px 1px 2px #000000;
+}
+
+    #sortable0, #sortable1, #sortable2, #sortable3{
+    width:23%;
+    min-height:371px;
+    border:2px solid #523826;
+    background:rgba(21,12,6,0.6);
+    border-radius:5px;
+    list-style-type: none;
+    margin: 5;
+    padding: 0;
+    float: left;
+    margin-right: 5px;
+}
+    #sortable0 slot, #sortable1 slot, #sortable2 slot, #sortable3 slot {
+    display:block;
+    color:#000000;
+    background: linear-gradient( 180deg, rgba(252,252,252, 0.8), rgba(252,252,252, 0.8)) 70%, rgba(252,252,252,0.3); 
+    text-align:center;
+    border-radius:5px;
+    cursor:move;
+    margin: 5px 5px 5px 5px;
+    padding: 5px;
+    font-size: 1.2em;
+    font-family:"Myriad Pro";
+    text-shadow:1px 1px 2px #FFFFFF;
+}
 </style>
 </head>
 <body>
@@ -112,7 +191,7 @@ echo '</ul>';
 
 for($i=0;$i<$num_sem;$i++){
     echo '<ul id="sortable'.$i.'" class="connectedSortable" data-semester="'.$semester[$i].'" >';
-        echo "<h1> ".$semName[date('M',strtotime($semester[$i]))]." ".date('Y',strtotime($semester[$i]))."</h1> ";
+        echo "<h1 align=center> ".$semName[date('M',strtotime($semester[$i]))]." ".date('Y',strtotime($semester[$i]))."</h1> ";
         echo $column[$i];
     echo '</ul>';
 }
@@ -125,7 +204,8 @@ $(function()
     {
         connectWith: '.connectedSortable',
         receive: function(event, ui) {
-            console.log(this);
+            $("#"+ui.item.context.id).css("background", "linear-gradient( 180deg, rgba(252,252,252, 0.8), rgba(252,252,252, 0.8)) 70%, rgba(252,252,252,0.3)");
+            //ui.item.css("background", #637CA1);
          $.ajax(
             {
                 type: "POST",
@@ -139,7 +219,10 @@ $(function()
                 },
                 success: function(html)
                 {
-                    alert(html);
+                    classesToRed=JSON.parse(html);
+                    $.each(classesToRed, function(key,value){
+                        $(value).css("background","red");
+                    });
                 }
 
             });

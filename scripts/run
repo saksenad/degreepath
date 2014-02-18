@@ -1,6 +1,10 @@
 #!/bin/bash
 
+echo "Running Create Tables Script"
 mysql -u root -p < create_tables.sql
+echo "Running BuzzAPI Scraper Script"
 python buzzapi_scraper.py
+echo "Running Insert Buzz API Data Script"
 python insert_buzzapi_data.py
+echo "Running Fake Data Script"
 mysql -u root -p < fake_data.sql

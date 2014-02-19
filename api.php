@@ -37,15 +37,13 @@ $app->get('/api/', function() use ($app) {
 });
 
 
-$app->get('/api/courses', function() use ($app) {
-  $courses = getCourses('SPAN');
+$app->get('/api/courses/:dept', function($dept) use ($app) {
+  // We are returning JSON
+  header("Content-Type: application/json");
+  $courses = getCourses($dept);
   $terms = array('0' => '201308', '1' => '201401', '2' => '201408', '3' => '201501');
   $enrollments = getEnrollments(1);
-  $app->render('index.tpl', array(
-    'courses' => $courses,
-    'terms' => $terms,
-    'enrollments' => $enrollments
-  ));
+  echo json_encode($courses);
 });
 
 

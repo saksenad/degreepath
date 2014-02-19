@@ -62,4 +62,3 @@ function getEnrollments($user_id) {
 }
 
 ?>
-

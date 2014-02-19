@@ -19,7 +19,7 @@ function getCourses($subject) {
     WHERE courses.subject ='%s';", $subject);
   $result = mysqli_query($conn, $query) or die('Error, query failed');
 
-  if (mysql_num_rows($result) > 0) {
+  if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
       array_push($courses, $row);
     }        
@@ -49,8 +49,8 @@ function getEnrollments($user_id) {
       $result = mysqli_query($conn, $query) or die('Error, query failed');
 
       $enrollments[$i] = array();
-      if (mysql_num_rows($result) > 0) {
-        while ($row = mysql_fetch_assoc($result)) {
+      if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
           array_push($enrollments[$i], $row);
         }        
       }

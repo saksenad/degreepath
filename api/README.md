@@ -27,27 +27,23 @@ Write all of the supporting functions that you need to support the above methods
 
 A template for doing this is below. 
 
-``
 
-require_once 'prefix.php';
+	require_once 'prefix.php';
 
-$app = \Slim\Slim::getInstance();
+	$app = \Slim\Slim::getInstance();
 
-$app->get('/apiname/:arg', function($arg) use ($app) {
-	header(...);
-	$result = myFunction($arg);
-	echo $result; // this could change to be something like echo json_encode($result), or the Smarty templated version, depending on the application type.
-});
+	$app->get('/apiname/:arg', function($arg) use ($app) {
+		header(...);
+		$result = myFunction($arg);
+		echo $result; // this could change to be something like echo json_encode($result), or the Smarty templated version, depending on the application type.
+	});
 
-/* Get courses for a given subject code (ex: 'CS') */
-function getCourses($subject) {
-	// allow us to use the global variable that exists in the prefix.php file for the database connection. 
-	global $conn; 
+	function getCourses($subject) {
+		// allow us to use the global variable that exists in the prefix.php file for the database connection. 
+		global $conn; 
 
-	// Do your MYSQL database calls here
+		// Do your MYSQL database calls here
 
-	// Return your result in some way
-	return $result
-}
-
-``
+		// Return your result in some way
+		return $result
+	}

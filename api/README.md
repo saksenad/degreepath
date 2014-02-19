@@ -23,6 +23,7 @@ As stated above begin by importing the prefix header.
 Get the Slim Instance.
 Then, declare all of the URI calls that this API can handle using the Slim Routing methods. 
 Write all of the supporting functions that you need to support the above methods, and make the appropriate function calls in the above configuration. 
+After you have made the module, you need to insert a `require_once 'your_module.php'` statement into the api.php into the block of require_once statements after the prefix.php require. 
 
 
 A template for doing this is below. 

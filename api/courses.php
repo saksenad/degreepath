@@ -16,6 +16,19 @@ $app->get('/courses/:dept/:format', function($dept, $format) use ($app) {
   echo json_encode($courses);
 });
 
+
+$app->get('/demo', function() use ($app) {
+  $courses = getCourses('SPAN');
+    $terms = array('0' => '201308', '1' => '201401', '2' => '201408', '3' => '201501');
+    $enrollments = getEnrollments(1);
+    $app->render('index.tpl', array(
+      'courses' => $courses,
+      'terms' => $terms,
+      'enrollments' => $enrollments
+    ));
+});
+
+
 /* Get courses for a given subject code (ex: 'CS') */
 function getCourses($subject) {
   global $conn;
@@ -33,4 +46,5 @@ function getCourses($subject) {
   }
   return $courses;
 }
+
 ?>

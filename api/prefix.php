@@ -1,5 +1,8 @@
 <?php
 
+ini_set('display_errors', 'On');
+error_reporting(E_ALL | E_STRICT);
+
 /* Require Slim Framework */
 require_once '../Slim/Slim.php';
 /* Require Smarty template engine and Slim Views */
@@ -30,4 +33,5 @@ $app->configureMode('development', function () use ($app) {
 	ini_set('error_reporting', E_ALL);
 
 });
+
 ?>

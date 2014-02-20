@@ -1,0 +1,9 @@
+# URL Rewriting
+# Scott Daner
+# DegreePath
+
+RewriteEngine On
+
+# Don't apply rules if the directory actually exists
+RewriteCond %{REQUEST_FILENAME} !-d
+

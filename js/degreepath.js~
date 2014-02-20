@@ -5,7 +5,7 @@ $(function() {
       console.log(ui);
       $.ajax({
         type: "POST",
-        url: "changeEnrollment.php",
+        url: "../changeEnrollment.php",
         data:
         {
           receiver: this.getAttribute("data-term"),

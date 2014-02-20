@@ -1,11 +1,11 @@
 $(function() {
-  $('#pending, #sortable0, #sortable1, #sortable2, #sortable3').sortable({
+  $('#pending, #sortable').sortable({
     connectWith: '.connectedSortable',
     receive: function(event, ui) {
       console.log(ui);
       $.ajax({
         type: "POST",
-        url: "../changeEnrollment.php",
+        url: "enrollment",
         data:
         {
           receiver: this.getAttribute("data-term"),

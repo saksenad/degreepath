@@ -6,6 +6,12 @@
 
 require_once 'prefix.php';
 
+$app = \Slim\Slim::getInstance();
+
+$app->post('/enrollment', function() use ($app) {
+  changeEnrollment();
+});
+
 /* Get all of the enrollments for a user_id */
 function getEnrollments($user_id) {
   global $conn;
@@ -39,4 +45,23 @@ function getEnrollments($user_id) {
   }
   return $enrollments;
 }
+
+function changeEnrollment() {
+  global $conn;
+
+  $new_term=$_POST['receiver'];
+  $course_id=$_POST['course_id'];
+  $old_term=$_POST['sender'];
+  $user_id=$_POST['user'];
+
+  $query = sprintf("UPDATE enrollments 
+    SET term_code = %d
+    WHERE user_id = %d
+    AND course_id = %d
+    AND term_code = %d;",
+    $new_term, 1, $course_id, $old_term);
+
+  $result = mysqli_query($conn, $query) or die('Error, query failed');
+}
+
 ?>

@@ -16,7 +16,7 @@ body {
   width: 20%;
 }
 
-#pending li; {
+#pending li {
   background: #232C39;
   border-radius: 10px;
   color: #ffffff;
@@ -29,20 +29,23 @@ body {
   text-align: center;
 }
 
-#sortable0, #sortable1, #sortable2, #sortable3 {
+#bucket {
   background: #232C39;
   border: 1px solid #ccc;
   border-radius: 5px;
   float: left;
-  list-style-type: none;
-  margin: 5;
+  margin: 5px;
   margin-right: 10px;
   min-height: 350px;
-  padding: 0;
   width: 25%;
 }
 
-#sortable0 li, #sortable1 li, #sortable2 li, #sortable3 li {
+#sortable {
+  list-style-type: none;
+  padding: 0;
+}
+
+#sortable li {
   background: #637CA1;
   border-radius: 10px;
   color: #ffffff;

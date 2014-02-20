@@ -16,7 +16,7 @@ $app->get('/courses/:dept/:format', function($dept, $format) use ($app) {
   echo json_encode($courses);
 });
 
-$app->get('/course/info/:id', function($id) use ($app) {
+$app->get('/course/:id', function($id) use ($app) {
   echo json_encode(getCourseInfo($id));
 });
 

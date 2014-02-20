@@ -17,7 +17,7 @@ $(function() {
 
         $.ajax({
           type: "GET",
-          url: "course/info/"+ui.item.attr("data-cid"),
+          url: "course/"+ui.item.attr("data-cid"),
           success: function(data) {
             /* Update UI element with the course description */
             event.toElement.innerHTML += " - "+JSON.parse(data)["name"];

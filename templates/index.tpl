@@ -1,8 +1,8 @@
 {extends file="layout.tpl"}
 {block name=body}
-  <ul id="pending" class="connectedSortable">    
+  <ul id="pending" class="connectedSortable" data-term="000000">    
     {foreach $courses as $course}
-      <li class="ui-state-default">{$course['subject']} {$course['course_number']}</li>
+      <li class="ui-state-default" data-cid={$course['id']}>{$course['subject']} {$course['course_number']}</li>
     {/foreach}
   </ul>
   {assign var="num" value="0"}

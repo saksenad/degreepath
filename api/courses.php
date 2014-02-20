@@ -16,6 +16,10 @@ $app->get('/courses/:dept/:format', function($dept, $format) use ($app) {
   echo json_encode($courses);
 });
 
+$app->get('/course/info/:id', function($id) use ($app) {
+  echo json_encode(getCourseInfo($id));
+});
+
 
 $app->get('/demo', function() use ($app) {
     $courses = getCourses('SPAN');
@@ -47,6 +51,21 @@ function getCourses($subject) {
     }        
   }
   return $courses;
+}
+
+function getCourseInfo($id) {
+  global $conn;
+  
+  $query = sprintf("SELECT *  
+    FROM courses
+    WHERE id ='%d'
+    LIMIT 1;", $id);
+  $result = mysqli_query($conn, $query) or die('Error, query failed');
+
+  if (mysqli_num_rows($result) > 0) {
+    $info = mysqli_fetch_assoc($result);   
+  }
+  return $info;
 }
 
 ?>

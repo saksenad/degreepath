@@ -41,6 +41,7 @@ body {
 }
 
 #sortable {
+  height: 200px;
   list-style-type: none;
   padding: 0;
 }

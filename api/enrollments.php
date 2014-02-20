@@ -8,8 +8,13 @@ require_once 'prefix.php';
 
 $app = \Slim\Slim::getInstance();
 
-$app->post('/enrollment', function() use ($app) {
-  changeEnrollment();
+$app->post('/enrollment/:action', function($action) use ($app) {
+  if ($action == 'change') {
+    changeEnrollment();
+  }
+  if ($action == 'add') {
+    addEnrollment();
+  }
 });
 
 /* Get all of the enrollments for a user_id */
@@ -60,6 +65,23 @@ function changeEnrollment() {
     AND course_id = %d
     AND term_code = %d;",
     $new_term, 1, $course_id, $old_term);
+
+  $result = mysqli_query($conn, $query) or die('Error, query failed');
+}
+
+function addEnrollment() {
+  global $conn;
+
+  $term=$_POST['receiver'];
+  $course_id=$_POST['course_id'];
+  $user_id=$_POST['user'];
+
+  $query = sprintf("INSERT INTO 
+    enrollments(course_id, user_id, term_code)
+    VALUES(%d, %d, %d);",
+    $course_id, 1, $term);
+
+  echo $query;
 
   $result = mysqli_query($conn, $query) or die('Error, query failed');
 }

@@ -51,12 +51,12 @@ class Smarty extends \Slim\View
     /**
      * @var string The path to the Smarty code directory WITHOUT the trailing slash
      */
-    public $parserDirectory = '../libs';
+    public $parserDirectory = 'libs';
 
     /**
      * @var string The path to the Smarty compiled templates folder WITHOUT the trailing slash
      */
-    public $parserCompileDirectory = '../templates_c';
+    public $parserCompileDirectory = 'templates_c';
 
     /**
      * @var string The path to the Smarty cache folder WITHOUT the trailing slash

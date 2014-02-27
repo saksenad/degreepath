@@ -4,10 +4,10 @@ ini_set('display_errors', 'On');
 error_reporting(E_ALL | E_STRICT);
 
 /* Require Slim Framework */
-require_once '../Slim/Slim.php';
+require_once 'Slim/Slim.php';
 /* Require Smarty template engine and Slim Views */
-require_once '../Slim/View.php';
-require_once '../Slim/Views/Smarty.php';
+require_once 'Slim/View.php';
+require_once 'Slim/Views/Smarty.php';
 
 $dbhost = "localhost";
 $dbuser = "root";
@@ -23,7 +23,8 @@ mysqli_select_db($conn, $dbname);
 /* Instantiate a Slim application */
 $app = new \Slim\Slim(array(
   'view' => new \Slim\Views\Smarty(),
-  'mode' => 'development'
+  'mode' => 'development',
+  'templates.path' => $_SERVER['DOCUMENT_ROOT'].'/templates'
 ));
 
 $app->configureMode('development', function () use ($app) {

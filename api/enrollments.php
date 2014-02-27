@@ -4,7 +4,7 @@
  * Methods for the enrollments API
  */
 
-require_once 'prefix.php';
+require_once 'api/prefix.php';
 
 $app = \Slim\Slim::getInstance();
 

@@ -17,7 +17,7 @@ $(function() {
 
         $.ajax({
           type: "GET",
-          url: "course/"+ui.item.attr("data-cid"),
+          url: "api/course/"+ui.item.attr("data-cid"),
           success: function(data) {
             /* Update UI element with the course description */
             event.toElement.innerHTML += " - "+JSON.parse(data)["name"];
@@ -26,7 +26,7 @@ $(function() {
       }
       $.ajax({
         type: "POST",
-        url: "enrollment/"+action,
+        url: "api/enrollment/"+action,
         data:
         {
           receiver: this.getAttribute("data-term"),

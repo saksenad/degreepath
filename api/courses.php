@@ -7,8 +7,6 @@
 
 require_once 'api/prefix.php';
 
-$app = \Slim\Slim::getInstance();
-
 $app->get('/courses/:dept/:format', function($dept, $format) use ($app) {
   // We are returning JSON
   header("Content-Type: application/" + $format);

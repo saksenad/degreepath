@@ -10,12 +10,17 @@ $courses = getCourses('SPAN');
 $terms = array('0' => '201308', '1' => '201401', '2' => '201408', '3' => '201501');
 $season = array('01' => 'Spring', '05' => 'Summer', '08' => 'Fall');
 $enrollments = getEnrollments(1);
+$departments = getDepartments();
+
 $app->render('index.tpl', array(
 	'courses' => $courses,
 	'terms' => $terms,
 	'season' => $season,
-	'enrollments' => $enrollments
+	'enrollments' => $enrollments,
+	'departments' => $departments
 ));
+
+
 
 
 ?>

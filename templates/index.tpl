@@ -1,10 +1,20 @@
 {extends file="layout.tpl"}
 {block name=body}
-  <ul id="pending" class="connectedSortable" data-term="000000">    
-    {foreach $courses as $course}
-      <li class="ui-state-default" data-cid={$course['id']}>{$course['subject']} {$course['course_number']}</li>
-    {/foreach}
-  </ul>
+
+<div id="accordion">
+  {foreach $departments as $dept}
+    <h3>{$dept['subject']}</h3>
+    {assign var='courses' value=getCourses($dept['subject'])}
+    <div id="accordionWrapper">
+      <ul id="pending" class="connectedSortable" data-term="000000">    
+        {foreach $courses as $course}
+          <li class="ui-state-default" data-cid={$course['id']}>{$course['subject']} {$course['course_number']}</li>
+        {/foreach}
+      </ul>
+    </div>
+  {/foreach}
+</div>
+
   {assign var="num" value="0"}
   {foreach $enrollments as $term }
     <div id="bucket">

@@ -5,6 +5,7 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <script type="text/javascript" src="../js/degreepath.js"></script>
+    <script type="text/javascript" src="../js/accordion.js"></script>
     <script type="text/javascript" src="../js/login.js"></script>
     <title>DegreePath</title>
   </head>

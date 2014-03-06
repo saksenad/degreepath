@@ -1,7 +1,13 @@
 {extends file="layout.tpl"}
 {block name=body}
+<div class="ui-widget">
+    <label for="deptDropDown">Department: </label>
+    <input id="deptDropDown"></input>
+    <button id="deptButton">Add</button>
+</div>
 
 <div id="accordion">
+  
   {foreach $departments as $dept}
     <h3>{$dept['subject']}</h3>
     {assign var='courses' value=getCourses($dept['subject'])}

@@ -18,6 +18,14 @@ $app->get('/course/:id', function($id) use ($app) {
   echo json_encode(getCourseInfo($id));
 });
 
+$app->get('/departmentList/:format', function($format) use ($app) {
+  // We are returning JSON
+  header("Content-Type: application/" + $format);
+  $courses = getDepartmentsJSON();
+
+  echo json_encode($courses);
+});
+
 
 /* Get courses for a given subject code (ex: 'CS') */
 function getCourses($subject) {
@@ -63,6 +71,23 @@ function getDepartments() {
   if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
       array_push($info, $row);
+    }  
+  }
+  return $info;
+
+}
+
+/*Get a list of all the Departments*/
+function getDepartmentsJSON() {
+  global $conn;
+
+  $query = "SELECT DISTINCT subject FROM courses;";
+  $info=array();
+  $result = mysqli_query($conn, $query) or die('Error, query failed');
+
+  if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+      array_push($info, $row['subject']);
     }  
   }
   return $info;

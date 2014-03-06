@@ -31,7 +31,20 @@ $(document).ready(function () {
 /*Listens to Button*/
 $(document).ready(function(){
     $("#deptButton").click(function() {
-        newDiv = "<h3>This is kewl</h3><div>Me no Likee JS</div>"+selectedDepartment;
+        //newDiv = "<h3>This is kewl</h3><div>Me no Likee JS</div>"+selectedDepartment;
+        $.ajax({
+           url:"http://ec2-50-112-187-67.us-west-2.compute.amazonaws.com/api/departmentDiv/"+selectedDepartment,
+           type:'GET',
+           success: function(data){
+               newDiv=data;
+               alert(data);
+               $('#accordion').append(newDiv);
+               $("#accordion" ).accordion({
+                    collapsible: true,
+                    heightStyle: "content"
+                }); 
+           }
+        });
         $('#accordion').append(newDiv);     
     });
 });

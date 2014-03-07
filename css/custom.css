@@ -1,0 +1,43 @@
+#pending {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  float: left;
+  list-style-type: none;
+  margin: 0;
+  margin-right: 10px;
+  min-height: 90%;
+  padding: 0;
+  width: 18%;
+}
+
+#pending li {
+  background: #669CCC;
+  border-radius: 10px;
+  color: #ffffff;
+  cursor: move;
+  display: block;
+  margin: 5px 5px 5px 5px;
+  padding: 5px;
+  text-align: center;
+}
+
+#bucket {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#sortable {
+  height: 200px;
+  list-style-type: none;
+}
+
+#sortable li {
+  background: #5C86BD;
+  border-radius: 10px;
+  color: #ffffff;
+  cursor: move;
+  display: block;
+  margin: 5px 5px 5px 5px;
+  padding: 5px;
+  text-align: center;
+}

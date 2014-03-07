@@ -68,12 +68,11 @@
 			            		<div class="nav-collapse collapse">
 			              		<ul class="nav">
 			                			<li class="active"><a href="#">Home</a></li>
-			                			<li><a href="#">About</a></li>
-			                			<li><a href="#">Contact</a></li>
+			                			<li><a href="#">My Semesters</a></li>
 			                			<li class="dropdown">
 			                  			<a href="#" class="dropdown-toggle" data-toggle="dropdown">George P. Burdell <b class="caret"></b></a>
 			                  			<ul class="dropdown-menu">
-			                    				<li><a href="#">Manage Profile</a></li>
+			                    				<li><a href="#">My Account</a></li>
 			                    				<li class="divider"></li>
 			                    				<li><a href="#">Log-out</a></li>
 			                  			</ul>

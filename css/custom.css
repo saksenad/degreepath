@@ -1,3 +1,21 @@
+#accordionWrapper {
+  background: #B9D5E7;
+  min-height: 2%;
+  height:100%;
+}
+
+#accordion {
+  background: #000000;
+  border: 1px solid #ccc;
+  float: left;
+  list-style-type: none;
+  margin: 0;
+  margin-right: 5px;
+  min-height: 10%;
+  padding: 0;
+  width: 20%;
+}
+
 #pending {
   border: 1px solid #ccc;
   border-radius: 5px;

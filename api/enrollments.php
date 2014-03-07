@@ -6,8 +6,6 @@
 
 require_once 'api/prefix.php';
 
-$app = \Slim\Slim::getInstance();
-
 $app->post('/enrollment/:action', function($action) use ($app) {
   if ($action == 'change') {
     changeEnrollment();

@@ -1,42 +1,23 @@
 #accordionWrapper {
   background: #B9D5E7;
   min-height: 2%;
+  padding: 0;
   height:100%;
 }
 
 #accordion {
-  background: #000000;
-  border: 1px solid #ccc;
   float: left;
   list-style-type: none;
   margin: 0;
+  margin-left: 30px;
   margin-right: 5px;
   min-height: 10%;
   padding: 0;
   width: 20%;
 }
 
-#pending {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  float: left;
-  list-style-type: none;
-  margin: 0;
-  margin-right: 10px;
-  min-height: 90%;
-  padding: 0;
-  width: 18%;
-}
-
-#pending li {
-  background: #669CCC;
-  border-radius: 10px;
-  color: #ffffff;
-  cursor: move;
-  display: block;
-  margin: 5px 5px 5px 5px;
-  padding: 5px;
-  text-align: center;
+#addDept {
+  margin: 30px;
 }
 
 #bucket {
@@ -49,7 +30,7 @@
   list-style-type: none;
 }
 
-#sortable li {
+#sortable li, #pending li {
   background: #5C86BD;
   border-radius: 10px;
   color: #ffffff;

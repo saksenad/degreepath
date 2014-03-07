@@ -8,28 +8,34 @@
   <div id="container">
 
     <!-- start: Accordian -->
-    <div class="ui-widget">
-        <label for="deptDropDown">Department: </label>
-        <input id="deptDropDown"></input>
-        <button id="deptButton">Add</button>
-    </div>
+    <div>
+      
+      <div id="addDept">
+          <label for="deptDropDown">Department: </label>
+          <input id="deptDropDown"></input>
+          <button id="deptButton">Add</button>
+      </div>
 
-    <div id="accordion">
-      {foreach $departments as $dept}
-        <h3>{$dept['subject']}</h3>
-        {assign var='courses' value=getCourses($dept['subject'])}
-        <div id="accordionWrapper" class="color-cccddd">
-          <ul id="pending" class="connectedSortable" data-term="000000">    
-            {foreach $courses as $course}
-              <li class="ui-state-default" data-cid={$course['id']}>{$course['subject']} {$course['course_number']}</li>
-            {/foreach}
-          </ul>
-        </div>
-      {/foreach}
+
+      <div id="accordion">
+        {foreach $departments as $dept}
+          <h3>{$dept['subject']}</h3>
+          {assign var='courses' value=getCourses($dept['subject'])}
+          <div id="accordionWrapper" class="color-cccddd">
+            <ul id="pending" class="connectedSortable" data-term="000000">    
+              {foreach $courses as $course}
+                <li class="ui-state-default" data-cid={$course['id']}>{$course['subject']} {$course['course_number']}</li>
+              {/foreach}
+            </ul>
+          </div>
+        {/foreach}
+      </div>
+
     </div>
     <!-- end: Accordian -->
 
     <!-- start: Table -->
+    <div>
 
       <!-- start: Row -->
   		<div class="row">
@@ -60,6 +66,7 @@
   		</div>
 	    <!-- end: Row -->
 
+    </div>
     <!-- end: Table -->
 
   </div>

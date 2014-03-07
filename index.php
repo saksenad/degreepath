@@ -2,23 +2,18 @@
 
 require_once 'api/api.php';
 
-$app = \Slim\Slim::getInstance();
+$session_stat = session_status();
 
-$courses = getCourses('SPAN');
-$terms = array('0' => '201308', '1' => '201401', '2' => '201408', '3' => '201501');
-$season = array('01' => 'Spring', '05' => 'Summer', '08' => 'Fall');
-$enrollments = getEnrollments(1);
-$departments = getDepartments();
-
-$app->render('index.tpl', array(
-	'courses' => $courses,
-	'terms' => $terms,
-	'season' => $season,
-	'enrollments' => $enrollments,
-	'departments' => $departments
-));
-
-
+if ($session_stat == PHP_SESSION_DISABLED || 
+	$session_stat == PHP_SESSION_NONE ||
+	$_SESSION['username'] == null || 
+	$_SESSION['user_id'] == null) 
+{
+	header("Location: home.php");
+}
+else {
+	header("Location: schedule.php");
+}
 
 
 ?>

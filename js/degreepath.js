@@ -24,15 +24,24 @@ $(function() {
           }
         });
       }
+
       $.ajax({
-        type: "POST",
-        url: "api/enrollment/"+action,
-        data:
-        {
-          receiver: this.getAttribute("data-term"),
-          user: 1,
-          course_id: ui.item.attr("data-cid"),
-          sender: ui.sender.attr("data-term")
+        type: "GET", 
+        url: "api/user",
+        success: function (data) {
+            user_id = JSON.parse(data)['user_id'];
+            console.log("got user id: " + user_id);
+            $.ajax({
+              type: "POST",
+              url: "api/enrollment/"+action,
+              data:
+              {
+                receiver: this.getAttribute("data-term"),
+                user: user_id,
+                course_id: ui.item.attr("data-cid"),
+                sender: ui.sender.attr("data-term")
+              }
+            });
         }
       });
     } 

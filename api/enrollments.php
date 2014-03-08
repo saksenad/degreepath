@@ -26,6 +26,16 @@ function getEnrollments($user_id) {
    201501
   );
 
+  $session_stat = session_status();
+  if ($session_stat == PHP_SESSION_DISABLED || 
+  $session_stat == PHP_SESSION_NONE ||
+  $_SESSION['username'] == null || 
+  $_SESSION['user_id'] == null ||
+  $_SESSION['user_id'] != $user_id) 
+  {
+    return;
+  }
+
   $enrollments = array();
 
   for ($i = 0; $i < sizeof($term_codes); $i++){
@@ -55,14 +65,25 @@ function changeEnrollment() {
   $new_term=$_POST['receiver'];
   $course_id=$_POST['course_id'];
   $old_term=$_POST['sender'];
-  $user_id=$_POST['user'];
+
+  $session_stat = session_status();
+  if ($session_stat == PHP_SESSION_DISABLED || 
+  $session_stat == PHP_SESSION_NONE ||
+  $_SESSION['username'] == null || 
+  $_SESSION['user_id'] == null ||
+  $_SESSION['user_id'] != $user_id) 
+  {
+    return;
+  }
+  
+  $user_id = $_SESSION['user_id'];
 
   $query = sprintf("UPDATE enrollments 
     SET term_code = %d
     WHERE user_id = %d
     AND course_id = %d
     AND term_code = %d;",
-    $new_term, 1, $course_id, $old_term);
+    $new_term, $user_id, $course_id, $old_term);
 
   $result = mysqli_query($conn, $query) or die('Error, query failed');
 }
@@ -70,16 +91,24 @@ function changeEnrollment() {
 function addEnrollment() {
   global $conn;
 
-  $term=$_POST['receiver'];
   $course_id=$_POST['course_id'];
-  $user_id=$_POST['user'];
+  $term=$_POST['receiver'];
+
+  $session_stat = session_status();
+  if ($session_stat == PHP_SESSION_DISABLED || 
+  $session_stat == PHP_SESSION_NONE ||
+  $_SESSION['username'] == null || 
+  $_SESSION['user_id'] == null) 
+  {
+    return;
+  }
+
+  $user_id = $_SESSION['user_id'];
 
   $query = sprintf("INSERT INTO 
     enrollments(course_id, user_id, term_code)
     VALUES(%d, %d, %d);",
-    $course_id, 1, $term);
-
-  echo $query;
+    $course_id, $user_id, $term);
 
   $result = mysqli_query($conn, $query) or die('Error, query failed');
 }

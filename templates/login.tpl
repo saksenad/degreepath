@@ -24,9 +24,9 @@
 	  </form>
 
 	  <h3>Login To Your Account</h3>
-	  <form action="api/user" method="POST">
-	    Username: <input type="text" name="username"><br />
-	    Password: <input type="password" name="password"> <br />
+	  <form onsubmit="login()">
+	    Username: <input type="text" id="login_username"><br />
+	    Password: <input type="password" id="login_password"> <br />
 	    <input type="submit">
 	  </form>
 

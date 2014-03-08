@@ -1,9 +1,6 @@
 function requestDelete() {
-	console.log("requesting delete");
 	var name = document.getElementById("delete_username").value;
 	var pass = document.getElementById("delete_password").value;
-	console.log(name);
-	console.log(pass);
 	$.ajax({
 		type: "DELETE",
 		url: "api/users",
@@ -11,12 +8,27 @@ function requestDelete() {
 		{
 			username: name,
 			password: pass
-		},
-		success: function(message) {
-			console.log(message);
 		}
 	});
 }
+
+function login() {
+	var name = document.getElementById("login_username").value;
+	var pass = document.getElementById("login_password").value;
+	$.ajax({
+		type: "POST",
+		url: "api/user",
+		data:
+		{
+			username: name,
+			password: pass,
+		},
+		success: function(data) {
+			window.location.replace("index.php");
+		}
+	});
+}
+
 
 function logout() {
 	$.ajax({

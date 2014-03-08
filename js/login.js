@@ -22,9 +22,6 @@ function login() {
 		{
 			username: name,
 			password: pass,
-		},
-		success: function(data) {
-			window.location.replace("index.php");
 		}
 	});
 }

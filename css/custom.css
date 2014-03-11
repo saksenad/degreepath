@@ -40,6 +40,7 @@
   color: #ffffff;
   cursor: move;
   display: block;
+  height: 20px;
   margin: 5px 5px 5px 5px;
   padding: 5px;
   text-align: center;
@@ -77,6 +78,14 @@
 #sortable img {
   float: right;
   visibility: hidden;
+}
+
+#sortable li div {
+  float: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 85%;
 }
 
 #sortable li:hover img {

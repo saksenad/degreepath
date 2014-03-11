@@ -50,8 +50,8 @@
               <ul id="sortable" class="connectedSortable" data-term={$terms[$num]}>
                 {foreach $term as $enrollment}
                   {if $enrollment}
-                    <li class="ui-state-default" data-cid={$enrollment['id']}>{$enrollment['subject']}
-                      {$enrollment['course_number']} - {$enrollment['name']}
+                    <li class="ui-state-default" data-cid={$enrollment['id']}>
+                      <div>{$enrollment['subject']} {$enrollment['course_number']} - {$enrollment['name']}</div>
                       <img class="remove" src="/img/icons/x.png"></img>
                     </li>
                   {/if}

@@ -13,6 +13,9 @@ $app->post('/enrollment/:action', function($action) use ($app) {
   if ($action == 'add') {
     addEnrollment();
   }
+  if ($action == 'delete') {
+    deleteEnrollment();
+  }
 });
 
 /* Get all of the enrollments for a user_id */
@@ -109,6 +112,23 @@ function addEnrollment() {
     enrollments(course_id, user_id, term_code)
     VALUES(%d, %d, %d);",
     $course_id, $user_id, $term);
+
+  $result = mysqli_query($conn, $query) or die('Error, query failed');
+}
+
+function deleteEnrollment() {
+  global $conn;
+
+  $course_id=$_POST['course_id'];
+  $term_id=$_POST['sender'];
+  
+  $user_id = $_SESSION['user_id'];
+
+  $query = sprintf("DELETE FROM enrollments 
+    WHERE user_id = %d
+    AND course_id = %d
+    AND term_code = %d;",
+    $user_id, $course_id, $term_id);
 
   $result = mysqli_query($conn, $query) or die('Error, query failed');
 }

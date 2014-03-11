@@ -73,3 +73,20 @@
   margin-top: 30px;
   padding-left: 50px;
 }
+
+#sortable img {
+  float: right;
+  visibility: hidden;
+}
+
+#sortable li:hover img {
+  filter: alpha(opacity=60);  
+  opacity: 0.6;
+  visibility: visible;
+}
+
+#sortable li img:hover {
+  cursor: pointer;
+  filter: alpha(opacity=100);  
+  opacity: 1.0;
+}

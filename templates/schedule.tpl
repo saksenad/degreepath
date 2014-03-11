@@ -39,13 +39,13 @@
     <div id="table">
 
       <!-- start: Row -->
-  		<div class="row">
+  		<div class="row" id="semester-buckets">
 
         {assign var="num" value="0"}
         {foreach $enrollments as $term }
 
       		<div class="span3">
-            <div id="bucket" class="color-cccddd">
+            <div id="semester" class="color-cccddd bucket">
               <h3 align="center">{$season[substr($terms[$num],4,2)]} {substr($terms[$num],0,4)}</h3>
               <ul id="sortable" class="connectedSortable" data-term={$terms[$num]}>
                 {foreach $term as $enrollment}
@@ -62,6 +62,14 @@
 
           {assign var="num" value=$num+1}
         {/foreach}
+
+        <!-- start: New semester bucket -->
+        <div class="span3">
+            <div id="new-semester" class="color-cccddd bucket">
+              <h3 align="center">New semester</h3>
+            </div>
+      		</div>
+          <!-- end: New semester bucket -->
 
   		</div>
 	    <!-- end: Row -->

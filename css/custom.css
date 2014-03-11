@@ -22,15 +22,30 @@
   width: 100px
 }
 
-#bucket {
-  border: 1px solid #ccc;
+.bucket {
   border-radius: 5px;
+  height: 250px;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
+#semester {
+  border: 2px solid #ccc;
+}
+
+#new-semester {
+  border: 2px dashed #ccc;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
+
+#new-semester:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+}
+
 #sortable {
-  height: 200px;
   list-style-type: none;
 }
 

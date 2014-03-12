@@ -1,4 +1,9 @@
 $(function() {
+  $.ajaxSetup({
+    cache: false,
+    data: null
+  });
+
   $('#pending, #sortable').sortable({
     connectWith: '.connectedSortable',
     stop: function(event, ui) {

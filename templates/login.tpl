@@ -24,13 +24,13 @@
 	  </form>
 
 	  <h3>Login To Your Account</h3>
-	  <form onsubmit="login()">
+	  <form onsubmit="login();">
 	    Username: <input type="text" id="login_username"><br />
 	    Password: <input type="password" id="login_password"> <br />
 	    <input type="submit">
 	  </form>
 
-	  <form onsubmit="logout()">
+	  <form onsubmit="logout();">
 	    <input type="submit" value="Logout">
 	  </form>
 

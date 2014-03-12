@@ -10,12 +10,6 @@
     <!-- start: Accordian -->
     <div id="courses">
       <div class="span2">
-      
-        <div id="addDept">
-            <label for="deptDropDown">Department: </label>
-            <input id="deptDropDown"></input>
-            <button id="deptButton">Add</button>
-        </div>
 
         <div id="accordion">
           {foreach $departments as $dept}
@@ -32,6 +26,12 @@
               </ul>
             </div>
           {/foreach}
+        </div>
+      
+        <div id="addDept">
+            <label for="deptDropDown">Department: </label>
+            <input id="deptDropDown"></input>
+            <button id="deptButton">Add</button>
         </div>
 
       </div>

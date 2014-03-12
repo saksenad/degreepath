@@ -1,5 +1,6 @@
 .span2 {
   height: 450px;
+  margin-top: 20px;
 }
 
 #accordionWrapper {
@@ -12,7 +13,7 @@
 #accordion {
   float: left;
   list-style-type: none;
-  margin: 0;
+  margin-bottom: 10px;
   min-height: 10%;
   padding: 0;
   width: 100%;
@@ -24,11 +25,12 @@
 }
 
 #addDept {
-  margin: 5px;
+  margin: 5px 0px;
 }
 
 #deptDropDown {
-  width: 100px
+  margin-right: 2px;
+  width: 90px;
 }
 
 .bucket {

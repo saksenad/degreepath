@@ -46,7 +46,10 @@
 
       		<div class="span3">
             <div id="semester" class="color-cccddd bucket">
-              <h3 align="center">{$season[substr($terms[$num],4,2)]} {substr($terms[$num],0,4)}</h3>
+              <h3 id="semester-header" align="center">
+                {$season[substr($terms[$num],4,2)]} {substr($terms[$num],0,4)}
+                <img class="remove-semester" src="/img/icons/x.png"></img>              
+              </h3>
               <ul id="sortable" class="connectedSortable" data-term={$terms[$num]}>
                 {foreach $term as $enrollment}
                   {if $enrollment}

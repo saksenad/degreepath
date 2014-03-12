@@ -113,12 +113,9 @@ function user_id($username, $password) {
 	}
 
 	$row = mysqli_fetch_assoc($result);
-	foreach (array_keys($row) as $key) {
-		echo "Key:" . $key;
-		echo "Value:" . $row[$key];
-	}
+	$stored_pass = $row['password'];
 
-	if (password_verify($username . "____" . $password, $row['password'])) {
+	if (crypt_verify($username, $password, $stored_pass)) {
 		return $row['id'];
 	} else {
 		return -1;
@@ -145,8 +142,13 @@ function sanitizeInput($_ARRAY) {
 
 function checksum($username, $password) {
 	$c_input = $username . "____" . $password;
-	$checksum = password_hash($c_input, PASSWORD_BCRYPT);
+	$checksum = crypt($c_input);
 	return $checksum;
+}
+
+function crypt_verify($username, $password, $hash) {
+	$c_input = $username . "____" . $password;
+	return (crypt($c_input, $hash) == $hash);
 }
 
 ?>

@@ -29,16 +29,6 @@ function getEnrollments($user_id) {
    201501
   );
 
-  $session_stat = session_status();
-  if ($session_stat == PHP_SESSION_DISABLED || 
-  $session_stat == PHP_SESSION_NONE ||
-  $_SESSION['username'] == null || 
-  $_SESSION['user_id'] == null ||
-  $_SESSION['user_id'] != $user_id) 
-  {
-    return;
-  }
-
   $enrollments = array();
 
   for ($i = 0; $i < sizeof($term_codes); $i++){
@@ -68,16 +58,6 @@ function changeEnrollment() {
   $new_term=$_POST['receiver'];
   $course_id=$_POST['course_id'];
   $old_term=$_POST['sender'];
-
-  $session_stat = session_status();
-  if ($session_stat == PHP_SESSION_DISABLED || 
-  $session_stat == PHP_SESSION_NONE ||
-  $_SESSION['username'] == null || 
-  $_SESSION['user_id'] == null ||
-  $_SESSION['user_id'] != $user_id) 
-  {
-    return;
-  }
   
   $user_id = $_SESSION['user_id'];
 
@@ -96,15 +76,6 @@ function addEnrollment() {
 
   $course_id=$_POST['course_id'];
   $term=$_POST['receiver'];
-
-  $session_stat = session_status();
-  if ($session_stat == PHP_SESSION_DISABLED || 
-  $session_stat == PHP_SESSION_NONE ||
-  $_SESSION['username'] == null || 
-  $_SESSION['user_id'] == null) 
-  {
-    return;
-  }
 
   $user_id = $_SESSION['user_id'];
 

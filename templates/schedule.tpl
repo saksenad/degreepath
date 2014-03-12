@@ -19,7 +19,10 @@
 
         <div id="accordion">
           {foreach $departments as $dept}
-            <h3>{$dept['subject']}</h3>
+            <h3>
+              <span class="subject">{$dept['subject']}</span>
+              <img class="remove-subject" src="/img/icons/x.png"></img> 
+            </h3>
             {assign var='courses' value=getCourses($dept['subject'])}
             <div id="accordionWrapper" class="color-cccddd">
               <ul id="pending" class="connectedSortable" data-term="000000">    

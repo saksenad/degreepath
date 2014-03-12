@@ -15,6 +15,7 @@ require_once "api/prefix.php";
 require_once "api/courses.php";
 require_once "api/enrollments.php";
 require_once "api/users.php";
+require_once "api/departments.php";
 
 $app->get("/", function() use ($app) {});
 $app->run();

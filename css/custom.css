@@ -1,3 +1,7 @@
+.span2 {
+  height: 450px;
+}
+
 #accordionWrapper {
   background: #B9D5E7;
   height: 100%;
@@ -12,6 +16,11 @@
   min-height: 10%;
   padding: 0;
   width: 100%;
+}
+
+#accordion h3 {
+  background: none;
+  background-color: #ccc;
 }
 
 #addDept {
@@ -91,7 +100,7 @@
   padding-left: 50px;
 }
 
-#sortable img, #semester-header img {
+#sortable img, #semester-header img, #accordion h3 img {
   float: right;
   visibility: hidden;
 }
@@ -110,13 +119,13 @@
   width: 85%;
 }
 
-#sortable li:hover img, #semester-header:hover img {
+#sortable li:hover img, #semester-header:hover img, #accordion h3:hover img {
   filter: alpha(opacity=60);  
   opacity: 0.6;
   visibility: visible;
 }
 
-#sortable li img:hover, #semester-header img:hover {
+#sortable li img:hover, #semester-header img:hover, #accordion h3 img:hover {
   cursor: pointer;
   filter: alpha(opacity=100);  
   opacity: 1.0;

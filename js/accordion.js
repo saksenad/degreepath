@@ -1,13 +1,10 @@
 var selectedDepartment;
 var newDiv
 
-
-
-
 /*Give the accordion functionality*/
 
 $(function() {
-    $("#accordion" ).accordion({
+    $("#accordion").accordion({
         collapsible: true,
         heightStyle: "content"
     });
@@ -15,11 +12,16 @@ $(function() {
 
 /*Create the dropdwon auto correcting menu*/
 $(function() {
-	var departments=["AE","AS","APPH","ASE","ARBC","ARCH","BIOL","BMEJ","BMED","BMEM","BC","CETL","CHBE","CHEM","CHIN","CP","CEE","COA","COE","COS","CX","CSE","CS","COOP","UCGA","EAS","ECON","ECE","ENGL","FS","FREN","GT","GTL","GRMN","HS","HIST","HTS","ISYE","ID","IPCO","IPIN","IPFS","IPSA","INTA","IL","INTN","IMBA","JAPN","KOR","LS","LING","LCC","MGT","MOT","MSE","MATH","ME","MP","MSL","MUSI","NS","NRE","PERS","PHIL","PHYS","POL","PTFE","DOPP","PSYC","PUBP","PUBJ","RGTR","RUSS","SOC","SPAN"];
-	$( "#deptDropDown" ).autocomplete({
-      source: departments
-    });
+	$.ajax({
+    url:"/api/departments",
+    type:'GET',
+    success: function(departments){
+      $( "#deptDropDown" ).autocomplete({
+          source: JSON.parse(departments)
+      }); 
+    }
   });
+});
 
 /*Taking inputs from dropdown*/
 $(document).ready(function () {
@@ -31,24 +33,48 @@ $(document).ready(function () {
 /*Listens to Button*/
 $(document).ready(function(){
     $("#deptButton").click(function() {
-        //newDiv = "<h3>This is kewl</h3><div>Me no Likee JS</div>"+selectedDepartment;
         $.ajax({
-           url:"http://ec2-50-112-187-67.us-west-2.compute.amazonaws.com/api/departmentDiv/"+selectedDepartment,
+           url:"/api/courses/"+selectedDepartment+"/json",
            type:'GET',
-           success: function(data){
-               newDiv=data;
-               alert(data);
-               $('#accordion').append(newDiv);
-               $("#accordion" ).accordion({
-                    collapsible: true,
-                    heightStyle: "content"
-                }); 
+           success: function(courses){
+
+             /* Add a new accordion for the selected course */
+             var newDiv = 
+               '<h3> \
+                 <span class="subject">'+selectedDepartment+'</span> \
+                 <img class="remove-subject" src="/img/icons/x.png"></img> \
+               </h3> \
+               <div id="accordionWrapper" class="color-cccddd"> \
+                 <ul id="pending" class="connectedSortable" data-term="000000">';
+
+             JSON.parse(courses).forEach(function(course) {
+               newDiv += '<li class="ui-state-default" data-cid={$course["id"]}>'+course["subject"]+' '+course["course_number"]+'</li>';
+             });
+
+             newDiv +=
+                '</ul> \
+               </div>';
+
+             $('#accordion').append(newDiv);
+             $("#accordion" ).accordion({
+                  collapsible: true,
+                  heightStyle: "content"
+              }); 
            }
-        });
-        $('#accordion').append(newDiv);     
+        });    
     });
 });
 
+$(document).ready(function(){
+  $(function() {
+    $(".remove-subject").click(function(event) {
+      // Remove list of courses
+      $(this).parent().next().remove();
 
+      // Remove subject header
+      $(this).parent().remove();
+    });
+  });
+});
 
  

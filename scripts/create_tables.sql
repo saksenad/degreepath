@@ -42,7 +42,7 @@ CREATE TABLE users (
   last_name varchar(255),
   major varchar(255), 
   minor varchar(255),
-  matriculation varchar(255),
+  matriculation int(10),
   username varchar(255),
   email varchar(255) NOT NULL,
   password varchar(255) NOT NULL,

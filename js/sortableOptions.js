@@ -19,7 +19,7 @@ var sortableOptions = {
         url: "api/course/"+ui.item.attr("data-cid"),
         success: function(data) {
           /* Update UI element with the course description */
-          $(event.toElement).append(
+          $(event.toElement).html(
             '<div class="course-title">'+event.toElement.innerHTML+' - '+JSON.parse(data)["name"]+'</div> \
              <img class="remove" src="/img/icons/x.png"></img>'                    
           );

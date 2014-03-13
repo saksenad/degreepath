@@ -45,10 +45,11 @@ $(document).ready(function(){
                  <img class="remove-subject" src="/img/icons/x.png"></img> \
                </h3> \
                <div id="accordionWrapper" class="color-cccddd"> \
-                 <ul id="pending" class="connectedSortable" data-term="000000">';
+                 <ul class="pending connectedSortable" data-term="000000">';
 
              JSON.parse(courses).forEach(function(course) {
-                var item ='<li class="ui-state-default" data-cid={$course["id"]}>'+course["subject"]+' '+course["course_number"]+'</li>';
+                console.log(course);
+                var item ='<li data-cid='+course["id"]+'>'+course["subject"]+' '+course["course_number"]+'</li>';
                 newDiv += item;
              });
 
@@ -57,10 +58,10 @@ $(document).ready(function(){
                </div>';
 
              console.log($(newDiv).children().last());
-             $(newDiv).children().last().sortable({connectWith: '.connectedSortable'});
+   
 
              $('#accordion').append(newDiv);
-
+             $(".pending").sortable(sortableOptions).disableSelection();
              
 
              $(".remove-subject").on('click', function(event) {

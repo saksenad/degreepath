@@ -56,6 +56,14 @@ $(document).ready(function(){
                </div>';
 
              $('#accordion').append(newDiv);
+
+
+
+             $(".remove-subject").on('click', function(event) {
+                removeAccordionSubject(this);
+              });
+
+
              $("#accordion" ).accordion({
                   collapsible: true,
                   heightStyle: "content"
@@ -65,14 +73,18 @@ $(document).ready(function(){
     });
 });
 
+function removeAccordionSubject(x) {
+  // Remove list of courses
+  $(x).parent().next().remove();
+
+  // Remove subject header
+  $(x).parent().remove();
+} 
+
 $(document).ready(function(){
   $(function() {
-    $(".remove-subject").click(function(event) {
-      // Remove list of courses
-      $(this).parent().next().remove();
-
-      // Remove subject header
-      $(this).parent().remove();
+    $(".remove-subject").on('click', function(event) {
+      removeAccordionSubject(this);
     });
   });
 });

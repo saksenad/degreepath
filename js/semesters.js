@@ -9,7 +9,7 @@ $(function() {
             +displayTermName(autoIncrementSemester(current_term))+
             '<img class="remove-semester" src="/img/icons/x.png"></img> \
           </h3> \
-          <ul id="sortable" class="connectedSortable" data-term="'
+          <ul class="sortable connectedSortable" data-term="'
            +autoIncrementSemester(current_term)+'"> \
           </ul> \
         </div> \
@@ -17,6 +17,7 @@ $(function() {
     );
 
     $(div).insertBefore($("#semester-buckets").children().last());
+    $(".sortable").sortable(sortableOptions).disableSelection();
 
     $(".remove-semester").on('click', function(event) {
       deleteSemester(this);

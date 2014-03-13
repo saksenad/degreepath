@@ -15,7 +15,7 @@ $(function() {
 	$.ajax({
     url:"/api/departments",
     type:'GET',
-    success: function(departments){
+    success: function(departments) {
       $( "#deptDropDown" ).autocomplete({
           source: JSON.parse(departments)
       }); 
@@ -48,16 +48,20 @@ $(document).ready(function(){
                  <ul id="pending" class="connectedSortable" data-term="000000">';
 
              JSON.parse(courses).forEach(function(course) {
-               newDiv += '<li class="ui-state-default" data-cid={$course["id"]}>'+course["subject"]+' '+course["course_number"]+'</li>';
+                var item ='<li class="ui-state-default" data-cid={$course["id"]}>'+course["subject"]+' '+course["course_number"]+'</li>';
+                newDiv += item;
              });
 
              newDiv +=
                 '</ul> \
                </div>';
 
+             console.log($(newDiv).children().last());
+             $(newDiv).children().last().sortable({connectWith: '.connectedSortable'});
+
              $('#accordion').append(newDiv);
 
-
+             
 
              $(".remove-subject").on('click', function(event) {
                 removeAccordionSubject(this);

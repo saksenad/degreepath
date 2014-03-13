@@ -1,5 +1,5 @@
 var selectedDepartment;
-var newDiv
+var newDiv;
 
 /*Give the accordion functionality*/
 

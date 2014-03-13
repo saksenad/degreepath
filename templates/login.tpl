@@ -17,8 +17,8 @@
 
 
 	  <h3>Delete Your Account</h3>
-	  <form onsubmit="requestDelete()">
-	    Username <input type="text" id="delete_username" /> <br /> 
+	  <form onsubmit="requestDelete();">
+	    Username <input type="text" id="delete_username"> <br /> 
 	    Password: <input type="password" id="delete_password"> <br />
 	    <input type="submit">
 	  </form>

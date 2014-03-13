@@ -4,8 +4,30 @@ require_once 'api/prefix.php';
 
 session_start();
 
-$app->post("/users", function() {
 
+function get_http_body_values($_ARRAY) {
+	/* DELETE and PUT data comes in on the stdin stream */
+
+	$bodyData = fopen("php://input", "r") or die("fuck this project");
+	if (!$bodyData) {
+		error_log("did not get any data, or could not open input");
+	}
+
+	$bodyString = "";
+	/* Read data from input stream */
+	while ($data = fread($bodyData, 1024)) {
+		error_log("got data ". $data);
+		$bodyString = $bodyString . $data;
+	}
+
+	error_log("data from request", $bodyString);
+	parse_str($bodyString, $_ARRAY);
+
+	/* Close stream */
+	fclose($bodyData);
+}
+
+$app->post("/users", function() {
 	sanitizeInput($_POST);
 
 	$username = $_POST['username'];
@@ -15,18 +37,19 @@ $app->post("/users", function() {
 	createUser($username, $email, $password);
 });
 
-$app->delete("/users", function() {
+$app->put("/users", function() {
 	// Put input into a sensible array, like how POST requests work
+	error_log("calling users");
 	$_DELETE = array();
-	parse_str(file_get_contents('php://input'), $_DELETE);
-	
-	error_log($_DELETE);
+	get_http_body_values($_DELETE);
 
+	error_log($_DELETE);
 	sanitizeInput($_DELETE);
 
 	$username = $_DELETE['username'];
 	$password = $_DELETE['password'];
 
+	error_log("trying to remove user: ". $username . " pass : ". $password);
 
 	removeUser($username, $password);
 });
@@ -89,10 +112,10 @@ function removeUser($username, $password) {
 			"result" => $user_id
 		));
 	}
-
+	error_log("trying to remove user with user_id ". $user_id);
 	// Delete that user from the database, and return the user_id to show a successful delete
 	$query = sprintf("DELETE FROM users WHERE id = %d", $user_id);
-	mysqli_query($conn, $query);
+	mysqli_query($conn, $query) or die("could not remove user");
 	echo json_encode(array(
 		"result" => $user_id
 	));
@@ -150,5 +173,48 @@ function crypt_verify($username, $password, $hash) {
 	$c_input = $username . "____" . $password;
 	return (crypt($c_input, $hash) == $hash);
 }
+
+
+/* Methods for getting assets owned by a user */
+
+$app->get("/users/:id/semesters", function($user_id) {
+	return json_encode(semestersForUser($user_id));
+});
+
+$app->post("/users/:id/semesters", function($user_id) {
+	addUserSemester($user_id, $_POST['term_code']);
+});
+
+$app->delete("/users/:id/:term_code", function($user_id, $term_code) {
+	removeUserSemester($user_id, $term_code);
+});
+
+
+function addUserSemester($user_id, $term_code) {
+	global $conn;
+	$query = sprintf("INSERT INTO user_semesters (user_id, term_code)
+			  VALUES (%d, %d)", $user_id, $term_code);
+	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));
+}
+
+function removeUserSemester($user_id, $term_code) {
+	global $conn; 
+	$query = sprintf("DELETE FROM user_semesters WHERE user_id = %d", $user_id);
+	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));
+}
+
+function semestersForUser($user_id) {
+	global $conn; 
+	$query = sprintf("SELECT term_code FROM user_semesters WHERE user_id = %d", $user_id);
+	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));
+	$semesters = mysql_fetch_array($result);
+	return $semesters;
+}
+
+/* End of methods for getting semesters associated with a user */
+
+
+
+
 
 ?>

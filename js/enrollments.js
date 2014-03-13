@@ -4,7 +4,7 @@ $(function() {
     data: null
   });
 
-  $('.pending, .sortable').sortable(sortableOptions).disableSelection();
+  //$('.pending, .sortable').sortable(sortableOptions).disableSelection();
 });
 
 function deleteEnrollment(x) {

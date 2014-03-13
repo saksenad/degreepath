@@ -35,7 +35,7 @@ function getEnrollments($user_id) {
       $query = sprintf("SELECT * 
       FROM enrollments
       INNER JOIN courses ON courses.id = enrollments.course_id
-      WHERE enrollments.user_id =  '%s'
+      WHERE enrollments.user_id =  %d
       AND enrollments.term_code =  '%s';", $user_id, $term_codes[$i]);
       $result = mysqli_query($conn, $query) or die('Error, query failed');
 

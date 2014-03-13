@@ -18,18 +18,42 @@ CREATE TABLE term_availability (
   PRIMARY KEY (id)
 );
 
+/* 
+* We don't need to have a separate id specifically for this table.
+* the user_id serves as the primary key for the table. 
+* Also, it is on user_id since we will be making requests for queries based on user_id
+* in other words, the WHERE statement will contain user_id = ???
+*/
+CREATE TABLE user_semesters (
+  user_id int(10) NOT NULL,
+  term_code int(10) NOT NULL,
+  PRIMARY KEY (user_id) 
+);
+
+CREATE TABLE user_subjects (
+  user_id int(10) NOT NULL,
+  subject varchar(255) NOT NULL,
+  PRIMARY KEY (user_id)
+)
+
 CREATE TABLE users (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
-  name varchar(255) NOT NULL,
+  first_name varchar(255),
+  last_name varchar(255),
+  major varchar(255), 
+  minor varchar(255),
+  matriculation varchar(255),
+  username varchar(255),
   email varchar(255) NOT NULL,
   password varchar(255) NOT NULL,
   PRIMARY KEY (id)
 );
 
+
 CREATE TABLE enrollments (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   course_id int(10) unsigned NOT NULL,
-  user_id varchar(255) NOT NULL,
+  user_id int(10) NOT NULL,
   term_code varchar(255) NOT NULL,
   PRIMARY KEY (id)
 );

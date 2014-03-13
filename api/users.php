@@ -69,7 +69,7 @@ $app->delete("/user", function() {
 function createUser($username, $email, $password) {
 	global $conn;
 
-	$query = sprintf("INSERT INTO users(name, email, password) VALUES ('%s', '%s', '%s')", 
+	$query = sprintf("INSERT INTO users(username, email, password) VALUES ('%s', '%s', '%s')", 
 		$username, $email, checksum($username, $password));
 	mysqli_query($conn, $query) or die("query: " . $query . " failed. " . mysqli_error($conn));
 
@@ -102,7 +102,7 @@ function user_id($username, $password) {
 	global $conn;
 	$query = sprintf("SELECT id,password
 					  FROM users 
-					  WHERE name = '%s'", 
+					  WHERE username = '%s'", 
 		$username, checksum($username, $password));
 
 	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));

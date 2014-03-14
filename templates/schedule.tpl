@@ -19,7 +19,7 @@
             </h3>
             {assign var='courses' value=getCourses($dept['subject'])}
             <div id="accordionWrapper" class="color-cccddd">
-              <ul class="pending connectedSortable" data-term="000000">    
+              <ul class="pending connectedSortable" data-term="999999">    
                 {foreach $courses as $course}
                   <li data-cid={$course['id']}>{$course['subject']} {$course['course_number']}</li>
                 {/foreach}

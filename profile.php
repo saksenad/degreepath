@@ -10,7 +10,17 @@ if (isset($_SESSION['username']) &&
 	header("Location: home.php");
 }
 
+$userDisplayName=getUserDisplayName($_SESSION['user_id']);
+$userArray=getUserInformation($_SESSION['user_id']);
+$departments=getDepartmentsPHPArray();
+$transfers=getTransferEnrollments($_SESSION['user_id']);
+
 $app = \Slim\Slim::getInstance();
-$app->render('profile.tpl');
+$app->render('profile.tpl', array(
+		'userDisplayName' => $userDisplayName,
+		'departments' => $departments,
+		'transfers' => $transfers,
+		'userArray' => $userArray
+	));
 
 ?>

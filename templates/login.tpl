@@ -8,14 +8,14 @@
   <div class="container">
 
 	  <h3 id="login-header">Login To Your Account</h3>
-	  <form onsubmit="login();">
-	    <label for="usernme">Username:</label>
-      <input id="username" type="text" id="login_username"><br />
+	  <form id="login-form" onsubmit="login();">
+	    <label for="username">Username:</label>
+      <input type="text" id="login_username"><br />
 	    
       <label for="password:">Password:</label>
-      <input id="password" type="password" id="login_password"> <br />
+      <input type="password" id="login_password"> <br />
 	    
-      <input type="submit" value="Login">
+      <input type="submit"value="Login">
 	  </form>
 
     <!--

@@ -43,7 +43,7 @@ $app->get("/user", function() use ($app) {
 		"user_id" => $user_id
 	));
 
-  $app->redirect("schedule.php");
+  //$app->redirect("schedule.php");
 });
 
 $app->post("/user", function() {

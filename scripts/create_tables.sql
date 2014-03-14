@@ -25,15 +25,17 @@ CREATE TABLE term_availability (
 * in other words, the WHERE statement will contain user_id = ???
 */
 CREATE TABLE user_semesters (
+  id int(10) unsigned NOT NULL AUTO_INCREMENT,
   user_id int(10) NOT NULL,
   term_code int(10) NOT NULL,
-  PRIMARY KEY (user_id) 
+  PRIMARY KEY (id) 
 );
 
 CREATE TABLE user_subjects (
+  id int(10) unsigned NOT NULL AUTO_INCREMENT,
   user_id int(10) NOT NULL,
   subject varchar(255) NOT NULL,
-  PRIMARY KEY (user_id)
+  PRIMARY KEY (id)
 )
 
 CREATE TABLE users (

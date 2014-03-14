@@ -5,7 +5,10 @@ $(function() {
 });
 
 function addSemester(bucket) {
-  var current_term = $("#semester-buckets").children().last().prev().children().children("ul").attr("data-term");
+  var current_term = '201405';
+  if ($("#semester-buckets").children().length > 1) {
+    current_term = $("#semester-buckets").children().last().prev().children().children("ul").attr("data-term");
+  }
 
   var new_term = autoIncrementSemester(current_term);
 

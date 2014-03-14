@@ -55,17 +55,16 @@
       <!-- start: Row -->
   		<div class="row" id="semester-buckets">
 
-        {assign var="num" value="0"}
-        {foreach $enrollments as $term }
-
-      		<div class="span3">
-            <div id="semester" class="color-cccddd bucket">
-              <h3 id="semester-header" align="center">
-                {$season[substr($terms[$num],4,2)]} {substr($terms[$num],0,4)}
-                <img class="remove-semester" src="/img/icons/x.png"></img>              
-              </h3>
-              <ul class="sortable connectedSortable" data-term={$terms[$num]}>
-                {foreach $term as $enrollment}
+      {foreach $terms as $term}
+    		<div class="span3">
+          <div id="semester" class="color-cccddd bucket">
+            <h3 id="semester-header" align="center">
+              {$season[substr($term,4,2)]} {substr($term,0,4)}
+              <img class="remove-semester" src="/img/icons/x.png"></img>              
+            </h3>
+            <ul class="sortable connectedSortable" data-term={$term}>
+              {if array_key_exists($term, $enrollments)}
+                {foreach $enrollments[$term] as $enrollment}
                   {if $enrollment}
                     <li class="ui-state-default" data-cid={$enrollment['id']}>
                       <div class="course-title">{$enrollment['subject']} {$enrollment['course_number']} - {$enrollment['name']}</div>
@@ -73,12 +72,11 @@
                     </li>
                   {/if}
                 {/foreach}
-              </ul>
-            </div>
-      		</div>
-
-          {assign var="num" value=$num+1}
-        {/foreach}
+              {/if}
+            </ul>
+          </div>
+    		</div>
+      {/foreach}
 
         <!-- start: New semester bucket -->
         <div class="span3">

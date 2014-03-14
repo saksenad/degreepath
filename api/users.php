@@ -208,7 +208,12 @@ function semestersForUser($user_id) {
 	global $conn; 
 	$query = sprintf("SELECT term_code FROM user_semesters WHERE user_id = %d", $user_id);
 	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));
-	$semesters = mysql_fetch_array($result);
+	$semesters = array();
+  if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        array_push($semesters, $row['term_code']);
+      }  
+    }
 	return $semesters;
 }
 

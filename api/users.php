@@ -221,25 +221,9 @@ function semestersForUser($user_id) {
 	return $semesters;
 }
 
-function getUserDisplayName($user_id) {
-	global $conn; 
-	$query = sprintf("SELECT * FROM users WHERE id = %d", $user_id);
-	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));
-	$username = mysqli_fetch_array($result);
-	return $username['first_name']." ".$username['last_name'];
-}
-
-function getUserInformation($user_id) {
-	global $conn; 
-	$query = sprintf("SELECT * FROM users WHERE id = %d", $user_id);
-	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));
-	$username = mysqli_fetch_array($result);
-	return $username;
-}
-
 function getUserInfo($user_id) {
   global $conn;
-	$query = sprintf("SELECT first_name, last_name, major
+	$query = sprintf("SELECT username, email, first_name, last_name, major, minor
 					  FROM users 
 					  WHERE id = '%s'", 
 		$user_id);

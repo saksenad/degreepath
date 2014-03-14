@@ -12,18 +12,14 @@ if (isset($_SESSION['username']) &&
 
 
 $userInfo = getUserInfo($_SESSION['user_id']);
-$userDisplayName=getUserDisplayName($_SESSION['user_id']);
-$userArray=getUserInformation($_SESSION['user_id']);
-$departments=getDepartmentsPHPArray();
+$departments=getAllDepartments();
 $transfers=getTransferEnrollments($_SESSION['user_id']);
 
 $app = \Slim\Slim::getInstance();
 $app->render('profile.tpl', array(
-		'userDisplayName' => $userDisplayName,
+		'userInfo' => $userInfo ,
 		'departments' => $departments,
 		'transfers' => $transfers,
-		'userArray' => $userArray,
-		'userInfo' => $userInfo 
 	));
 
 

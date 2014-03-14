@@ -43,7 +43,7 @@
         <div id="addDept">
             <select id="deptDropDown">
               {foreach $departments as $dept} 
-              <option value={$dept['subject']}>{$dept['subject']}</option>
+              <option value={$dept}>{$dept}</option>
               {/foreach}
             </select>
             <button id="deptButton">Add</button>

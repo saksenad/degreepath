@@ -19,7 +19,7 @@ $enrollments = array();
 foreach ($terms as $term) {
   $enrollments[$term] = getEnrollments($_SESSION['user_id'], $term);
 }
-$departments = getAccordionDepartments();
+$departments = getAllDepartments();
 
 
 $app->render('schedule.tpl', array(

@@ -33,7 +33,7 @@
 
 						  <label for="major"><span>Major:</span></label>
 						  <select class="form-control" name="major">
-                <option value="" selected>{$userArray['major']}</option>
+                <option value="" selected>{$userInfo['major']}</option>
                 {foreach $departments as $dept}
                 	<option value={$dept}>{$dept}</option>
                 {/foreach}
@@ -41,7 +41,7 @@
 
 						  <label for="minor"><span>Minor:</span></label>
 						  <select class="form-control" name="minor">
-                <option value="" selected>{$userArray['minor']}</option>
+                <option value="" selected>{$userInfo['minor']}</option>
                 {foreach $departments as $dept}
                 	<option value={$dept}>{$dept}</option>
                 {/foreach}
@@ -57,16 +57,16 @@
               <br/>
 
 						  <label for="email">Email address:</label>
-						  <input id="email" name="email" type="text" value={$userArray['email']}>
+						  <input id="email" name="email" type="text" value={$userInfo['email']}>
 
 					    <label for="firstname"><span>First Name:</span></label>
-					    <input id="firstname" name="firstname" type="text" value={$userArray['first_name']}>
+					    <input id="firstname" name="firstname" type="text" value={$userInfo['first_name']}>
 
 						  <label for="lastname"><span>Last Name:</span></label>
-              <input id="lastname" name="lastname" type="text" value={$userArray['last_name']}>
+              <input id="lastname" name="lastname" type="text" value={$userInfo['last_name']}>
 
 							<label for="username"><span>Username:</span></label>
-							<input id="username" name="username" type="text" value={$userArray['username']}>
+							<input id="username" name="username" type="text" value={$userInfo['username']}>
 
 							<input type="submit" value="Update Information">
 

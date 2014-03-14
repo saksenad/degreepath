@@ -23,12 +23,12 @@
 
         <div id="accordion">
 
-          {foreach $departments as $dept}
+          
             <h3>
               <span class="subject">{$userInfo['major']}</span>
               <img class="remove-subject" src="/img/icons/x.png"></img> 
             </h3>
-            {assign var='courses' value=getCourses($dept['subject'])}
+            {assign var='courses' value=getCourses($userInfo['major'])}
             <div id="accordionWrapper" class="color-cccddd">
               <ul class="pending connectedSortable" data-term="999999">    
                 {foreach $courses as $course}
@@ -36,7 +36,7 @@
                 {/foreach}
               </ul>
             </div>
-          {/foreach}
+          
 
         </div>
       

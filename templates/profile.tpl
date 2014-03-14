@@ -103,7 +103,7 @@
 								  <input type="submit" value="Update Information">
 					    </fieldset>
 
-              <input type="submit">
+            
 				    </form>
 
 				  </div>

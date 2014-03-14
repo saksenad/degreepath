@@ -10,12 +10,11 @@ if (isset($_SESSION['username']) &&
 	header("Location: home.php");
 }
 
-$displayName = getDisplayName($_SESSION['user_id']);
+$userInfo = getUserInfo($_SESSION['user_id']);
 
 $app = \Slim\Slim::getInstance();
 $app->render('profile.tpl', array(
-  'username' => $_SESSION['username'],
-  'displayName' => $displayName  
+  'userInfo' => $userInfo  
 ));
 
 

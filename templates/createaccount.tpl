@@ -16,8 +16,9 @@
       <input id="last_name" type="text" name="last_name"><br />
 
       <label for="major">Major:</label>
-      <select id ="major">
+      <select id ="major" name=major>
         <option value="CHEM">Chemistry</option>
+        <option value="MATH">Mathematics</option>
         <option value="CS">Computer Science</option>
         <option value="ACCT">Accounting</option>
       </select><br />

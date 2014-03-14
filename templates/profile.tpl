@@ -1,7 +1,7 @@
 {extends file="layout.tpl"}
 {block name=nav_options}
 	<li id="loggedin" class="dropdown">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown">{$displayName['first_name']} <b class="caret"></b></a>
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">{$userInfo['first_name']} <b class="caret"></b></a>
 		<ul class="dropdown-menu">
 				<li><a href="schedule.php">My Degree Plan</a></li>
 				<li class="divider"></li>
@@ -25,7 +25,7 @@
  
 				  <!-- start: Profile Info-->
 					<div id="profile-form">
-					  <h2>{$displayName['first_name']} {$displayName['last_name']}</h2>
+					  <h2>{$userInfo['first_name']} {$userInfo['last_name']}</h2>
             <br/>
 
 						<form method="post" action="">

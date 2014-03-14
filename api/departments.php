@@ -28,7 +28,7 @@ function getDepartments() {
 }
 
 /*Get a list of all the departments that the accordion will display by default */
-function getAccordionDepartments() {
+function getAccordionDepartments($major_dept) {
   global $conn;
 
   $query = "SELECT DISTINCT subject FROM courses;";
@@ -37,7 +37,7 @@ function getAccordionDepartments() {
 
   if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
-      if ($row['subject'] == 'CHEM') {
+      if ($row['subject'] == $major_dept) {
         array_push($info, $row);
       }
     }  

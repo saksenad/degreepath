@@ -13,8 +13,9 @@ $app->post("/users", function() use ($app) {
 	$email = $_POST['email'];
   $first_name = $_POST['first_name'];
   $last_name = $_POST['last_name'];
+  $major = $_POST['major'];
 
-	createUser($username, $email, $password, $first_name, $last_name);
+	createUser($username, $email, $password, $first_name, $last_name, $major);
 
   $app->redirect("/");
 });
@@ -45,7 +46,7 @@ $app->get("/user", function() use ($app) {
 		"user_id" => $user_id
 	));
 
-  //$app->redirect("schedule.php");
+  $app->redirect("schedule.php");
 });
 
 $app->post("/user", function() {
@@ -72,11 +73,11 @@ $app->delete("/user", function() {
 	$_SESSION['user_id'] = null;
 });
 
-function createUser($username, $email, $password, $first_name, $last_name) {
+function createUser($username, $email, $password, $first_name, $last_name, $major) {
 	global $conn;
 
-	$query = sprintf("INSERT INTO users(username, email, password, first_name, last_name) VALUES ('%s', '%s', '%s', '%s', '%s')", 
-		$username, $email, checksum($username, $password), $first_name, $last_name);
+	$query = sprintf("INSERT INTO users(username, email, password, first_name, last_name, major) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')", 
+		$username, $email, checksum($username, $password), $first_name, $last_name, $major);
 	mysqli_query($conn, $query) or die("query: " . $query . " failed. " . mysqli_error($conn));
 
 	echo json_encode(array(
@@ -128,9 +129,9 @@ function user_id($username, $password) {
 	}
 }
 
-function getDisplayName($user_id) {
+function getUserInfo($user_id) {
   global $conn;
-	$query = sprintf("SELECT first_name, last_name
+	$query = sprintf("SELECT first_name, last_name, major
 					  FROM users 
 					  WHERE id = '%s'", 
 		$user_id);

@@ -19,9 +19,9 @@
             </h3>
             {assign var='courses' value=getCourses($dept['subject'])}
             <div id="accordionWrapper" class="color-cccddd">
-              <ul id="pending" class="connectedSortable" data-term="000000">    
+              <ul class="pending connectedSortable" data-term="000000">    
                 {foreach $courses as $course}
-                  <li class="ui-state-default" data-cid={$course['id']}>{$course['subject']} {$course['course_number']}</li>
+                  <li data-cid={$course['id']}>{$course['subject']} {$course['course_number']}</li>
                 {/foreach}
               </ul>
             </div>
@@ -53,11 +53,11 @@
                 {$season[substr($terms[$num],4,2)]} {substr($terms[$num],0,4)}
                 <img class="remove-semester" src="/img/icons/x.png"></img>              
               </h3>
-              <ul id="sortable" class="connectedSortable" data-term={$terms[$num]}>
+              <ul class="sortable connectedSortable" data-term={$terms[$num]}>
                 {foreach $term as $enrollment}
                   {if $enrollment}
                     <li class="ui-state-default" data-cid={$enrollment['id']}>
-                      <div>{$enrollment['subject']} {$enrollment['course_number']} - {$enrollment['name']}</div>
+                      <div class="course-title">{$enrollment['subject']} {$enrollment['course_number']} - {$enrollment['name']}</div>
                       <img class="remove" src="/img/icons/x.png"></img>
                     </li>
                   {/if}

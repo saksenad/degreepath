@@ -44,7 +44,7 @@
         		<p>
 					    Degreepath can do awesome amazing things and everyone should use it. Click the button below to start making awesome degree plans!
 				    </p>
-         		<p><a class="btn btn-success btn-large">Create an account &raquo;</a></p>
+         		<p><a class="btn btn-success btn-large" href="createaccount.php">Create an account &raquo;</a></p>
       		</div>
 			<!-- end: Hero Unit -->
 

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html lang="en">
@@ -33,6 +32,7 @@
     <script type="text/javascript" src="js/accordion.js"></script>
     <script type="text/javascript" src="js/login.js"></script>
     <script type="text/javascript" src="js/navigation.js"></script>
+    <script type="text/javascript" src="js/sortableOptions.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/flexslider.js"></script>
     <script src="js/carousel.js"></script>
@@ -73,7 +73,6 @@
 			            		</a>
 			            		<div class="nav-collapse collapse">
 			              		<ul class="nav">
-			                			<li><a id="login" href="index.php">My Semesters</a></li>
 			                			<li><a id="login" href="login.php">Log-in</a></li>
 			                			<li id="loggedin" class="dropdown">
 			                  			<a href="#" class="dropdown-toggle" data-toggle="dropdown">George P. Burdell <b class="caret"></b></a>

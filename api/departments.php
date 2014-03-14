@@ -37,7 +37,7 @@ function getAccordionDepartments() {
 
   if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
-      if ($row['subject'] == 'SPAN') {
+      if ($row['subject'] == 'CHEM') {
         array_push($info, $row);
       }
     }  

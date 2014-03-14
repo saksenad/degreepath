@@ -4,7 +4,7 @@ require_once 'api/prefix.php';
 
 session_start();
 
-$app->post("/users", function() {
+$app->post("/users", function() use ($app) {
 
 	sanitizeInput($_POST);
 
@@ -13,6 +13,8 @@ $app->post("/users", function() {
 	$email = $_POST['email'];
 
 	createUser($username, $email, $password);
+
+  $app->redirect("/");
 });
 
 $app->delete("/users", function() {
@@ -31,7 +33,7 @@ $app->delete("/users", function() {
 	removeUser($username, $password);
 });
 
-$app->get("/user", function() {
+$app->get("/user", function() use ($app) {
 	global $_SESSION;
 	$user_id = $_SESSION['user_id'];
 	$username = $_SESSION['username'];
@@ -40,6 +42,8 @@ $app->get("/user", function() {
 		"username" => $username,
 		"user_id" => $user_id
 	));
+
+  $app->redirect("schedule.php");
 });
 
 $app->post("/user", function() {

@@ -20,6 +20,22 @@ $app->post("/users", function() use ($app) {
   $app->redirect("/");
 });
 
+/*User can update their information*/
+$app->post("/users/update", function() use ($app) {
+
+	$username = $_POST['username'];
+	$email = $_POST['email'];
+	$firstName = $_POST['firstname'];
+	$lastName = $_POST['lastname'];
+	$major = $_POST['major'];
+	$minor = $_POST['minor'];
+	$uid = $_SESSION['user_id'];
+
+	updateUserInfo($uid,$username,$email,$firstName,$lastName,$major,$minor);
+
+  $app->redirect("/");
+});
+
 $app->delete("/users", function() {
 	// Put input into a sensible array, like how POST requests work
 	$_DELETE = array();
@@ -217,5 +233,32 @@ function semestersForUser($user_id) {
 	return $semesters;
 }
 
+function getUserDisplayName($user_id) {
+	global $conn; 
+	$query = sprintf("SELECT * FROM users WHERE id = %d", $user_id);
+	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));
+	$username = mysqli_fetch_array($result);
+	return $username['first_name']." ".$username['last_name'];
+}
+
+function getUserInformation($user_id) {
+	global $conn; 
+	$query = sprintf("SELECT * FROM users WHERE id = %d", $user_id);
+	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));
+	$username = mysqli_fetch_array($result);
+	return $username;
+}
+
+function updateUserInfo($uid,$username,$email,$firstName,$lastName,$major,$minor) {
+
+	global $conn; 
+	$query = sprintf("UPDATE `users` 
+					SET `first_name`='%s',`last_name`='%s',`major`='%s',`minor`='%s',`username`='%s',`email`='%s'
+				WHERE id=%d;",$firstName,$lastName,$major,$minor,$username,$email,$uid);
+
+	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));
+	return $result;
+
+}
 /* End of methods for getting semesters associated with a user */
 ?>

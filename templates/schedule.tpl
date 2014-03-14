@@ -22,18 +22,22 @@
       <div class="span2">
 
         <div id="accordion">
-          <h3>
-            <span class="subject">{$userInfo['major']}</span>
-            <img class="remove-subject" src="/img/icons/x.png"></img> 
-          </h3>
-          {assign var='courses' value=getCourses($userInfo['major'])}
-          <div id="accordionWrapper" class="color-cccddd">
-            <ul class="pending connectedSortable" data-term="000000">    
-              {foreach $courses as $course}
-                <li data-cid={$course['id']}>{$course['subject']} {$course['course_number']}</li>
-              {/foreach}
-            </ul>
-          </div>
+
+          
+            <h3>
+              <span class="subject">{$userInfo['major']}</span>
+              <img class="remove-subject" src="/img/icons/x.png"></img> 
+            </h3>
+            {assign var='courses' value=getCourses($userInfo['major'])}
+            <div id="accordionWrapper" class="color-cccddd">
+              <ul class="pending connectedSortable" data-term="999999">    
+                {foreach $courses as $course}
+                  <li data-cid={$course['id']}>{$course['subject']} {$course['course_number']}</li>
+                {/foreach}
+              </ul>
+            </div>
+          
+
         </div>
       
         <div id="addDept">

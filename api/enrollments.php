@@ -95,4 +95,28 @@ function deleteEnrollment() {
   $result = mysqli_query($conn, $query) or die('Error, query failed');
 }
 
+function getTransferEnrollments($user_id) {
+  global $conn;
+
+  $enrollments = array();
+
+
+  $query = sprintf("SELECT * 
+  FROM enrollments
+  INNER JOIN courses ON courses.id = enrollments.course_id
+  WHERE enrollments.user_id =  %d
+  AND enrollments.term_code =  '%s';", $user_id, "000000");
+  $result = mysqli_query($conn, $query) or die('Error, query failed');
+
+  $enrollments = array();
+  if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+      array_push($enrollments, $row);
+    }        
+  }
+  
+  
+  return $enrollments;
+}
+
 ?>

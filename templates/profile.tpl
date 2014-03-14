@@ -25,39 +25,40 @@
  
 				  <!-- start: Profile Info-->
 					<div id="profile-form">
-					  <h2>{$userInfo['first_name']} {$userInfo['last_name']}</h2>
-            <br/>
 
-						<form method="post" action="">
+					  <h2>{$userDisplayName}</h2>
+
+            <br/>
+            				<form method="post" action="../api/users/update">
 
 							<fieldset>
 								<div class="clearfix">
 									<label for="major"><span>Major:</span></label>
 									<div class="input">
-										<select class="form-control">
-                      <option value="" disabled selected>Choose a major</option>
-                      <option value="ae">Aerospace Engineering</option>
-                      <option value="cs">Computer Science</option>
-                      <option value="psyc">Psychology</option>
-                    </select>
+										<select class="form-control" name="major">
+					                      <option value="" selected>{$userArray['major']}</option>
+					                      {foreach $departments as $dept}
+					                      	<option value={$dept}>{$dept}</option>
+					                      {/foreach}
+					                    </select>
 									</div>
 								</div>
 
 								<div class="clearfix">
 									<label for="minor"><span>Minor:</span></label>
 									<div class="input">
-										<select class="form-control">
-                      <option value="" selected>No minor</option>
-                      <option value="ae">Aerospace Engineering</option>
-                      <option value="cs">Computer Science</option>
-                      <option value="psyc">Psychology</option>
-                    </select>
+										<select class="form-control" name="minor">
+					                      <option value="" selected>{$userArray['minor']}</option>
+					                      {foreach $departments as $dept}
+					                      	<option value={$dept}>{$dept}</option>
+					                      {/foreach}
+					                    </select>
 									</div>
 								</div>
 
 							</fieldset>
 
-						</form>
+						
 					</div>
           <!-- end: Profile Info -->	
 
@@ -67,24 +68,42 @@
 					    <h3>Account Information</h3>
               <br/>
 
-						  <form method="post" action="">
+						  
 							  <fieldset>
 								  <div class="clearfix">
 									  <label for="email">Email address:</label>
 									  <div class="input">
-										  <input tabindex="2" size="25" id="email" name="email" type="text" value="">
+
+										  <input tabindex="2" size="25" id="email" name="email" type="text" value={$userArray['email']} class="input-xlarge">
 									  </div>
 								  </div>
 
-                  <div class="clearfix">
-									  <label for="name">Password:</label>
+                  					<div class="clearfix">
+									  <label for="firstname"><span>First Name</span></label>
 									  <div class="input">
-										  <input tabindex="1" size="18" id="password" name="password" type="text" value="">
+										  <input tabindex="1" size="18" id="firstname" name="firstname" type="text" value={$userArray['first_name']}>
+									  </div>
+								  	</div>
+
+								  <div class="clearfix">
+									  <label for="lastname"><span>Last Name</span></label>
+
+									  <div class="input">
+										  <input tabindex="2" size="25" id="lastname" name="lastname" type="text" value={$userArray['last_name']} class="input-xlarge">
 									  </div>
 								  </div>
+
+								  <div class="clearfix">
+									  <label for="username"><span>Username</span></label>
+									  <div class="input">
+										  <input tabindex="2" size="25" id="username" name="username" type="text" value={$userArray['username']} class="input-xlarge">
+									  </div>
+								  </div>
+
+								  <input type="submit" value="Update Information">
 					    </fieldset>
 
-              <input type="submit">
+            
 				    </form>
 
 				  </div>
@@ -112,11 +131,10 @@
           <!-- start: Transfer Credit Bucket -->
           <div>
               <div id="bucket" class="color-cccddd">
-                <ul class = "pending connectedSortable" data-term="000000">    
-                  <li class="ui-state-default">CS 1301</li>
-                  <li class="ui-state-default">PSYC 1101</li>
-                  <li class="ui-state-default">HIST 2211</li>
-                  <li class="ui-state-default">PHYS 2112</li>  
+                <ul class="pending connectedSortable" data-term="000000"> 
+                  {foreach $transfers as $course}
+	                  <li class="ui-state-default" data-cid={$course['id']}>{$course['subject']} {$course['course_number']}</li>  
+                  {/foreach}
                 </ul>
               </div>
           </div>

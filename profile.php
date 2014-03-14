@@ -11,6 +11,9 @@ if (isset($_SESSION['username']) &&
 }
 
 $app = \Slim\Slim::getInstance();
-$app->render('profile.tpl');
+$app->render('profile.tpl', array(
+  'username' => $_SESSION['username']
+));
+
 
 ?>

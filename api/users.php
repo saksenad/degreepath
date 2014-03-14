@@ -160,15 +160,18 @@ function crypt_verify($username, $password, $hash) {
 
 /* Methods for getting assets owned by a user */
 
-$app->get("/users/:id/semesters", function($user_id) {
+$app->get("/users/semesters", function() {
+  $user_id = $_SESSION['user_id'];
 	return json_encode(semestersForUser($user_id));
 });
 
-$app->post("/users/:id/semesters", function($user_id) {
+$app->post("/users/semesters", function() {
+  $user_id = $_SESSION['user_id'];
 	addUserSemester($user_id, $_POST['term_code']);
 });
 
-$app->delete("/users/:id/:term_code", function($user_id, $term_code) {
+$app->delete("/users/:term_code", function($term_code) {
+  $user_id = $_SESSION['user_id'];
 	removeUserSemester($user_id, $term_code);
 });
 
@@ -182,7 +185,7 @@ function addUserSemester($user_id, $term_code) {
 
 function removeUserSemester($user_id, $term_code) {
 	global $conn; 
-	$query = sprintf("DELETE FROM user_semesters WHERE user_id = %d", $user_id);
+	$query = sprintf("DELETE FROM user_semesters WHERE user_id = %d AND term_code = %d", $user_id, $term_code);
 	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));
 }
 

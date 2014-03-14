@@ -23,7 +23,8 @@ $app->render('schedule.tpl', array(
 	'terms' => $terms,
 	'season' => $season,
 	'enrollments' => $enrollments,
-	'departments' => $departments
+	'departments' => $departments,
+  'username' => $_SESSION['username']
 ));
 
 

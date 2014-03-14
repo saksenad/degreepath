@@ -11,8 +11,11 @@ $app->post("/users", function() use ($app) {
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	$email = $_POST['email'];
+  $first_name = $_POST['first_name'];
+  $last_name = $_POST['last_name'];
+  $major = $_POST['major'];
 
-	createUser($username, $email, $password);
+	createUser($username, $email, $password, $first_name, $last_name, $major);
 
   $app->redirect("/");
 });
@@ -87,11 +90,11 @@ $app->delete("/user", function() {
 	$_SESSION['user_id'] = null;
 });
 
-function createUser($username, $email, $password) {
+function createUser($username, $email, $password, $first_name, $last_name, $major) {
 	global $conn;
 
-	$query = sprintf("INSERT INTO users(username, email, password) VALUES ('%s', '%s', '%s')", 
-		$username, $email, checksum($username, $password));
+	$query = sprintf("INSERT INTO users(username, email, password, first_name, last_name, major) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')", 
+		$username, $email, checksum($username, $password), $first_name, $last_name, $major);
 	mysqli_query($conn, $query) or die("query: " . $query . " failed. " . mysqli_error($conn));
 
 	echo json_encode(array(
@@ -143,6 +146,18 @@ function user_id($username, $password) {
 	}
 }
 
+function getUserInfo($user_id) {
+  global $conn;
+	$query = sprintf("SELECT first_name, last_name, major
+					  FROM users 
+					  WHERE id = '%s'", 
+		$user_id);
+
+	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));
+  $row = mysqli_fetch_assoc($result);
+  return $row;
+}
+
 function sanitizeInput($_ARRAY) {
 	$username = $_ARRAY['username'];
 	$password = $_ARRAY['password'];
@@ -177,15 +192,18 @@ function crypt_verify($username, $password, $hash) {
 
 /* Methods for getting assets owned by a user */
 
-$app->get("/users/:id/semesters", function($user_id) {
+$app->get("/users/semesters", function() {
+  $user_id = $_SESSION['user_id'];
 	return json_encode(semestersForUser($user_id));
 });
 
-$app->post("/users/:id/semesters", function($user_id) {
+$app->post("/users/semesters", function() {
+  $user_id = $_SESSION['user_id'];
 	addUserSemester($user_id, $_POST['term_code']);
 });
 
-$app->delete("/users/:id/:term_code", function($user_id, $term_code) {
+$app->delete("/users/:term_code", function($term_code) {
+  $user_id = $_SESSION['user_id'];
 	removeUserSemester($user_id, $term_code);
 });
 
@@ -199,7 +217,7 @@ function addUserSemester($user_id, $term_code) {
 
 function removeUserSemester($user_id, $term_code) {
 	global $conn; 
-	$query = sprintf("DELETE FROM user_semesters WHERE user_id = %d", $user_id);
+	$query = sprintf("DELETE FROM user_semesters WHERE user_id = %d AND term_code = %d", $user_id, $term_code);
 	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));
 }
 

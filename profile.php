@@ -10,6 +10,8 @@ if (isset($_SESSION['username']) &&
 	header("Location: home.php");
 }
 
+
+$userInfo = getUserInfo($_SESSION['user_id']);
 $userDisplayName=getUserDisplayName($_SESSION['user_id']);
 $userArray=getUserInformation($_SESSION['user_id']);
 $departments=getDepartmentsPHPArray();
@@ -20,7 +22,9 @@ $app->render('profile.tpl', array(
 		'userDisplayName' => $userDisplayName,
 		'departments' => $departments,
 		'transfers' => $transfers,
-		'userArray' => $userArray
+		'userArray' => $userArray,
+		'userInfo' => $userInfo 
 	));
+
 
 ?>

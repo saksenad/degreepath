@@ -1,4 +1,14 @@
 {extends file="layout.tpl"}
+{block name=nav_options}
+	<li id="loggedin" class="dropdown">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">{$userInfo['first_name']} <b class="caret"></b></a>
+		<ul class="dropdown-menu">
+				<li><a href="schedule.php">My Degree Plan</a></li>
+				<li class="divider"></li>
+				<li><a href="home.php" onclick="logout()">Log-out</a></li>
+		</ul>
+	</li>
+{/block}
 {block name=body}
 
 <!--start: Wrapper-->
@@ -15,7 +25,9 @@
  
 				  <!-- start: Profile Info-->
 					<div id="profile-form">
+
 					  <h2>{$userDisplayName}</h2>
+
             <br/>
             				<form method="post" action="../api/users/update">
 
@@ -59,8 +71,9 @@
 						  
 							  <fieldset>
 								  <div class="clearfix">
-									  <label for="email"><span>Email address:</span></label>
+									  <label for="email">Email address:</label>
 									  <div class="input">
+
 										  <input tabindex="2" size="25" id="email" name="email" type="text" value={$userArray['email']} class="input-xlarge">
 									  </div>
 								  </div>
@@ -74,6 +87,7 @@
 
 								  <div class="clearfix">
 									  <label for="lastname"><span>Last Name</span></label>
+
 									  <div class="input">
 										  <input tabindex="2" size="25" id="lastname" name="lastname" type="text" value={$userArray['last_name']} class="input-xlarge">
 									  </div>
@@ -88,6 +102,8 @@
 
 								  <input type="submit" value="Update Information">
 					    </fieldset>
+
+              <input type="submit">
 				    </form>
 
 				  </div>

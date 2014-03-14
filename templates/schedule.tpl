@@ -1,4 +1,14 @@
 {extends file="layout.tpl"}
+{block name=nav_options}
+	<li id="loggedin" class="dropdown">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">{$userInfo['first_name']} <b class="caret"></b></a>
+		<ul class="dropdown-menu">
+				<li><a href="profile.php">My Account</a></li>
+				<li class="divider"></li>
+				<li><a href="home.php" onclick="logout()">Log-out</a></li>
+		</ul>
+	</li>
+{/block}
 {block name=body}
   
 <!-- start: Wrapper -->
@@ -12,9 +22,10 @@
       <div class="span2">
 
         <div id="accordion">
+
           {foreach $departments as $dept}
             <h3>
-              <span class="subject">{$dept['subject']}</span>
+              <span class="subject">{$userInfo['major']}</span>
               <img class="remove-subject" src="/img/icons/x.png"></img> 
             </h3>
             {assign var='courses' value=getCourses($dept['subject'])}
@@ -26,11 +37,15 @@
               </ul>
             </div>
           {/foreach}
+
         </div>
       
         <div id="addDept">
-            <label for="deptDropDown">Department: </label>
-            <input id="deptDropDown"></input>
+            <select id="deptDropDown">
+              {foreach $departments as $dept} 
+              <option value={$dept['subject']}>{$dept['subject']}</option>
+              {/foreach}
+            </select>
             <button id="deptButton">Add</button>
         </div>
 

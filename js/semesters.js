@@ -1,30 +1,44 @@
 $(function() {
   $("#new-semester").click(function(event) {
-    var current_term = $("#semester-buckets").children().last().prev().children().children("ul").attr("data-term");
-
-    var div = $(
-      '<div class="span3"> \
-        <div id="semester" class="color-cccddd bucket"> \
-          <h3 id="semester-header" align="center">'
-            +displayTermName(autoIncrementSemester(current_term))+
-            '<img class="remove-semester" src="/img/icons/x.png"></img> \
-          </h3> \
-          <ul class="sortable connectedSortable" data-term="'
-           +autoIncrementSemester(current_term)+'"> \
-          </ul> \
-        </div> \
-      </div>'
-    );
-
-    $(div).insertBefore($("#semester-buckets").children().last());
-    $(".sortable").sortable(sortableOptions).disableSelection();
-
-    $(".remove-semester").on('click', function(event) {
-      deleteSemester(this);
-    });
-
+    addSemester(this)
   });
 });
+
+function addSemester(bucket) {
+  var current_term = $("#semester-buckets").children().last().prev().children().children("ul").attr("data-term");
+
+  var new_term = autoIncrementSemester(current_term);
+
+  $.ajax({
+    url:"/api/users/semesters",
+    type:'POST',
+    data: {
+      term_code: new_term
+    },
+    success: function() {
+      var div = $(
+        '<div class="span3"> \
+          <div id="semester" class="color-cccddd bucket"> \
+            <h3 id="semester-header" align="center">'
+              +displayTermName(new_term)+
+              '<img class="remove-semester" src="/img/icons/x.png"></img> \
+            </h3> \
+            <ul class="sortable connectedSortable" data-term="'
+             +new_term+'"> \
+            </ul> \
+          </div> \
+        </div>'
+      );
+
+      $(div).insertBefore($("#semester-buckets").children().last());
+      $(".sortable").sortable(sortableOptions).disableSelection();
+
+      $(".remove-semester").on('click', function(event) {
+        deleteSemester(this);
+      });
+    }
+  });
+}
 
 function autoIncrementSemester(current_term) {
   var increment = {"01":"05", "05":"08", "08":"01"};
@@ -51,7 +65,16 @@ function displayTermName(term_code) {
 
 function deleteSemester(x) {
   //Delete semester bucket
-  $(x).parent().parent().parent().remove();
+
+  var term_code = $(x).parent().parent().children().last().attr("data-term");
+
+  $.ajax({
+    url:"/api/users/"+term_code,
+    type:'DELETE',
+    success: function() {
+      $(x).parent().parent().parent().remove(); 
+    }
+  });
 }
 
 $(function() {

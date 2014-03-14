@@ -145,18 +145,6 @@ function user_id($username, $password) {
 	}
 }
 
-function getUserInfo($user_id) {
-  global $conn;
-	$query = sprintf("SELECT first_name, last_name, major
-					  FROM users 
-					  WHERE id = '%s'", 
-		$user_id);
-
-	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));
-  $row = mysqli_fetch_assoc($result);
-  return $row;
-}
-
 function sanitizeInput($_ARRAY) {
 	$username = $_ARRAY['username'];
 	$password = $_ARRAY['password'];
@@ -247,6 +235,18 @@ function getUserInformation($user_id) {
 	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));
 	$username = mysqli_fetch_array($result);
 	return $username;
+}
+
+function getUserInfo($user_id) {
+  global $conn;
+	$query = sprintf("SELECT first_name, last_name, major
+					  FROM users 
+					  WHERE id = '%s'", 
+		$user_id);
+
+	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));
+  $row = mysqli_fetch_assoc($result);
+  return $row;
 }
 
 function updateUserInfo($uid,$username,$email,$firstName,$lastName,$major,$minor) {

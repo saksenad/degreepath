@@ -7,11 +7,15 @@
 	<!--start: Container -->
   <div class="container">
 
-	  <h3>Login To Your Account</h3>
+	  <h3 id="login-header">Login To Your Account</h3>
 	  <form onsubmit="login();">
-	    Username: <input type="text" id="login_username"><br />
-	    Password: <input type="password" id="login_password"> <br />
-	    <input type="submit" value="Login">
+	    <label for="usernme">Username:</label>
+      <input id="username" type="text" id="login_username"><br />
+	    
+      <label for="password:">Password:</label>
+      <input id="password" type="password" id="login_password"> <br />
+	    
+      <input type="submit" value="Login">
 	  </form>
 
     <!--

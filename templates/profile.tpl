@@ -112,7 +112,7 @@
           <!-- start: Transfer Credit Bucket -->
           <div>
               <div id="bucket" class="color-cccddd">
-                <ul id="pending" class="connectedSortable" data-term="000000">    
+                <ul class = "pending connectedSortable" data-term="000000">    
                   <li class="ui-state-default">CS 1301</li>
                   <li class="ui-state-default">PSYC 1101</li>
                   <li class="ui-state-default">HIST 2211</li>

@@ -23,7 +23,7 @@
       </select><br />
 
 	    <label for="username">Username:</label>
-      <input id="username" type="text" name="username"><br />
+      <input type="text" name="username"><br />
 
 	    <label for="email">Email:</label>
       <input type="text" name="email"><br />

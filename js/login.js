@@ -13,8 +13,6 @@ function requestDelete() {
 }
 
 function login() {
-	console.log("calling login properly");
-
 	var name = document.getElementById("login_username").value;
 	var pass = document.getElementById("login_password").value;
 	$.ajax({

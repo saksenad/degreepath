@@ -11,8 +11,10 @@ $app->post("/users", function() use ($app) {
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	$email = $_POST['email'];
+  $first_name = $_POST['first_name'];
+  $last_name = $_POST['last_name'];
 
-	createUser($username, $email, $password);
+	createUser($username, $email, $password, $first_name, $last_name);
 
   $app->redirect("/");
 });
@@ -70,11 +72,11 @@ $app->delete("/user", function() {
 	$_SESSION['user_id'] = null;
 });
 
-function createUser($username, $email, $password) {
+function createUser($username, $email, $password, $first_name, $last_name) {
 	global $conn;
 
-	$query = sprintf("INSERT INTO users(username, email, password) VALUES ('%s', '%s', '%s')", 
-		$username, $email, checksum($username, $password));
+	$query = sprintf("INSERT INTO users(username, email, password, first_name, last_name) VALUES ('%s', '%s', '%s', '%s', '%s')", 
+		$username, $email, checksum($username, $password), $first_name, $last_name);
 	mysqli_query($conn, $query) or die("query: " . $query . " failed. " . mysqli_error($conn));
 
 	echo json_encode(array(
@@ -124,6 +126,18 @@ function user_id($username, $password) {
 	} else {
 		return -1;
 	}
+}
+
+function getDisplayName($user_id) {
+  global $conn;
+	$query = sprintf("SELECT first_name, last_name
+					  FROM users 
+					  WHERE id = '%s'", 
+		$user_id);
+
+	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));
+  $row = mysqli_fetch_assoc($result);
+  return $row;
 }
 
 function sanitizeInput($_ARRAY) {

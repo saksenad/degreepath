@@ -46,13 +46,13 @@
                 	<option value={$dept}>{$dept}</option>
                 {/foreach}
               </select>
-            </form>
+           
           </div>
           <!-- end: Profile Info -->	
 
 				  <!-- start: Account Info -->	
           <div id="account">
-            <form id="account-form">
+            
 					    <h3>Account Information</h3>
               <br/>
 

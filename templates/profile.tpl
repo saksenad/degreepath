@@ -25,7 +25,7 @@
  
 				  <!-- start: Profile Info-->
 					<div id="profile-form">
-					  <h2>Naomi Robert</h2>
+					  <h2>{$username}</h2>
             <br/>
 
 						<form method="post" action="">

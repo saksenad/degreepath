@@ -22,25 +22,26 @@
       <div class="span2">
 
         <div id="accordion">
-          {foreach $departments as $dept}
-            <h3>
-              <span class="subject">{$dept['subject']}</span>
-              <img class="remove-subject" src="/img/icons/x.png"></img> 
-            </h3>
-            {assign var='courses' value=getCourses($dept['subject'])}
-            <div id="accordionWrapper" class="color-cccddd">
-              <ul class="pending connectedSortable" data-term="000000">    
-                {foreach $courses as $course}
-                  <li data-cid={$course['id']}>{$course['subject']} {$course['course_number']}</li>
-                {/foreach}
-              </ul>
-            </div>
-          {/foreach}
+          <h3>
+            <span class="subject">{$userInfo['major']}</span>
+            <img class="remove-subject" src="/img/icons/x.png"></img> 
+          </h3>
+          {assign var='courses' value=getCourses($userInfo['major'])}
+          <div id="accordionWrapper" class="color-cccddd">
+            <ul class="pending connectedSortable" data-term="000000">    
+              {foreach $courses as $course}
+                <li data-cid={$course['id']}>{$course['subject']} {$course['course_number']}</li>
+              {/foreach}
+            </ul>
+          </div>
         </div>
       
         <div id="addDept">
-            <label for="deptDropDown">Department: </label>
-            <input id="deptDropDown"></input>
+            <select id="deptDropDown">
+              {foreach $departments as $dept} 
+              <option value={$dept['subject']}>{$dept['subject']}</option>
+              {/foreach}
+            </select>
             <button id="deptButton">Add</button>
         </div>
 

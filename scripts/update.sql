@@ -2,9 +2,6 @@
 USE degreepath;
 
 DROP TABLE IF EXISTS user_semesters;
-DROP TABLE IF EXISTS user_subjects;
-
-DROP TABLE IF EXISTS user_semesters;
 
 CREATE TABLE user_semesters (
   id int(10) NOT NULL AUTO_INCREMENT,

@@ -17,7 +17,7 @@ $app->post("/users", function() use ($app) {
 
 	createUser($username, $email, $password, $first_name, $last_name, $major);
 
-  $app->redirect("/");
+  $app->redirect("../login.php");
 });
 
 /*User can update their information*/

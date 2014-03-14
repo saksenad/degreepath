@@ -31,10 +31,9 @@ $app->post("/users/update", function() use ($app) {
 	$minor = $_POST['minor'];
 	$uid = $_SESSION['user_id'];
 
-	//TODO Implement this function
 	updateUserInfo($uid,$username,$email,$firstName,$lastName,$major,$minor);
 
-  //$app->redirect("/");
+  $app->redirect("/");
 });
 
 $app->delete("/users", function() {

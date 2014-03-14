@@ -36,7 +36,7 @@
 									<label for="major"><span>Major:</span></label>
 									<div class="input">
 										<select class="form-control" name="major">
-					                      <option value="" disabled selected>Choose new major</option>
+					                      <option value="" selected>{$userArray['major']}</option>
 					                      {foreach $departments as $dept}
 					                      	<option value={$dept}>{$dept}</option>
 					                      {/foreach}
@@ -48,7 +48,7 @@
 									<label for="minor"><span>Minor:</span></label>
 									<div class="input">
 										<select class="form-control" name="minor">
-					                      <option value="" disabled selected>No minor</option>
+					                      <option value="" selected>{$userArray['minor']}</option>
 					                      {foreach $departments as $dept}
 					                      	<option value={$dept}>{$dept}</option>
 					                      {/foreach}

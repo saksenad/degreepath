@@ -1,4 +1,14 @@
 {extends file="layout.tpl"}
+{block name=nav_options}
+	<li id="loggedin" class="dropdown">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">{$username} <b class="caret"></b></a>
+		<ul class="dropdown-menu">
+				<li><a href="schedule.php">My Degree Plan</a></li>
+				<li class="divider"></li>
+				<li><a href="home.php" onclick="logout()">Log-out</a></li>
+		</ul>
+	</li>
+{/block}
 {block name=body}
 
 <!--start: Wrapper-->

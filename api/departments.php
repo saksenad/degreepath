@@ -7,7 +7,7 @@
 
 require_once 'api/prefix.php';
 
-$app->get('/departments', function() use ($app) {
+$app->post('/departments', function() use ($app) {
   echo getDepartments();
 });
 

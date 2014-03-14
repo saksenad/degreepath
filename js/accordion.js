@@ -11,10 +11,10 @@ $(function() {
 });
 
 /*Create the dropdwon auto correcting menu*/
-$(function() {
+$(document).ready(function() {
 	$.ajax({
     url:"/api/departments",
-    type:'GET',
+    type:'POST',
     success: function(departments) {
       $( "#deptDropDown" ).autocomplete({
           source: JSON.parse(departments)
@@ -57,7 +57,6 @@ $(document).ready(function(){
                 '</ul> \
                </div>';
 
-             console.log($(newDiv).children().last());
    
 
              $('#accordion').append(newDiv);

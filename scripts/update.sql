@@ -22,3 +22,6 @@ CREATE TABLE user_subjects (
   CONSTRAINT pk_constraint
   UNIQUE (id)
 );
+
+ALTER TABLE courses
+ADD GPA float NOT NULL

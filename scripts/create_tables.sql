@@ -3,12 +3,13 @@ DROP DATABASE IF EXISTS degreepath;
 CREATE DATABASE degreepath;
 USE degreepath;
 
-CREATE TABLE courses (
-  id int(10) unsigned NOT NULL AUTO_INCREMENT,
-  subject varchar(255) NOT NULL,
-  course_number varchar(255) NOT NULL,
-  name varchar(255) NOT NULL,
-  PRIMARY KEY (id)
+CREATE TABLE `courses` (
+ `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `subject` varchar(255) NOT NULL,
+ `course_number` varchar(255) NOT NULL,
+ `name` varchar(255) NOT NULL,
+ `GPA` float NOT NULL,
+ PRIMARY KEY (`id`)
 );
 
 CREATE TABLE term_availability (

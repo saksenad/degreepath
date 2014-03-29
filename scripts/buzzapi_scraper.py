@@ -1,5 +1,6 @@
 import urllib2
 import json
+import time
 
 
 def request(resource, params):
@@ -13,7 +14,7 @@ courses = []
 
 # Get a list of all subjects
 resource = 'subjects'
-params = 'term_code=201402&'
+params = 'term_code='+time.strftime("%Y")+'02&'
 response = urllib2.urlopen(request(resource, params)).read()
 
 subjects = (json.loads(response))["api_result_data"]
@@ -25,7 +26,7 @@ for s in subjects:
   print subject
   
   resource = 'classes'
-  params = 'term_code=201402&subject='+subject+'&'
+  params = 'term_code='+time.strftime("%Y")+'02&subject='+subject+'&'
   response = urllib2.urlopen(request(resource, params)).read()
 
   if "api_result_data" in (json.loads(response)).keys():

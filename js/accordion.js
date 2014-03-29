@@ -45,7 +45,7 @@ $(document).ready(function(){
                  <img class="remove-subject" src="/img/icons/x.png"></img> \
                </h3> \
                <div id="accordionWrapper" class="color-cccddd"> \
-                 <ul class="pending connectedSortable" data-term="000000">';
+                 <ul class="pending connectedSortable" data-term="999999">';
 
              JSON.parse(courses).forEach(function(course) {
                 console.log(course);
@@ -60,7 +60,11 @@ $(document).ready(function(){
    
 
              $('#accordion').append(newDiv);
-             $(".pending").sortable(sortableOptions).disableSelection();
+             /*$(document).ready(function ()
+             {
+
+              $(".pending").sortable(sortableOptions).disableSelection();
+             });*/
              
 
              $(".remove-subject").on('click', function(event) {

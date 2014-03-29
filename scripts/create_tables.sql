@@ -9,6 +9,8 @@ CREATE TABLE `courses` (
  `course_number` varchar(255) NOT NULL,
  `name` varchar(255) NOT NULL,
  `GPA` float NOT NULL,
+ `Temp_CRN` INT NOT NULL,
+ `PreReqs` varchar(1023) NOT NULL,
  PRIMARY KEY (`id`)
 );
 

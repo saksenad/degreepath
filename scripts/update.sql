@@ -25,3 +25,12 @@ CREATE TABLE user_subjects (
 
 ALTER TABLE courses
 ADD GPA float NOT NULL
+
+ALTER TABLE courses
+ADD Temp_CRN INT NOT NULL
+
+ALTER TABLE courses
+ADD PreReqs varchar(1023) NOT NULL
+
+
+

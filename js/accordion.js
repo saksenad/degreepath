@@ -60,11 +60,7 @@ $(document).ready(function(){
    
 
              $('#accordion').append(newDiv);
-             /*$(document).ready(function ()
-             {
-
-              $(".pending").sortable(sortableOptions).disableSelection();
-             });*/
+             $(".pending").sortable(sortableOptions).disableSelection();
              
 
              $(".remove-subject").on('click', function(event) {

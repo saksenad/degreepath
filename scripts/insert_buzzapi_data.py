@@ -12,7 +12,6 @@ for course in courses:
   result = cur.execute("SELECT * FROM courses WHERE subject='"+course['subject_code']+"' AND course_number='"+course['course_number']+"'")
   if result == 0:
     query = "INSERT INTO courses(subject, course_number, name, Temp_CRN) VALUES('"+course['subject_code']+"', '"+course['course_number']+"', '"+course['course_title'].replace("'", "")+"', "+course['crn']+");"
-    print query
     cur.execute(query)
 
 db.commit()

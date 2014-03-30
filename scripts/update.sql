@@ -23,14 +23,16 @@ CREATE TABLE user_subjects (
   UNIQUE (id)
 );
 
-ALTER TABLE courses
-ADD GPA float NOT NULL
+DROP TABLE IF EXISTS courses;
 
-ALTER TABLE courses
-ADD Temp_CRN INT NOT NULL
-
-ALTER TABLE courses
-ADD PreReqs varchar(1023) NOT NULL
-
-
+CREATE TABLE `courses` (
+ `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `subject` varchar(255) NOT NULL,
+ `course_number` varchar(255) NOT NULL,
+ `name` varchar(255) NOT NULL,
+ `GPA` float NOT NULL,
+ `PreReqs` varchar(1023) NOT NULL,
+ `Temp_CRN` int(11) NOT NULL,
+ PRIMARY KEY (`id`)
+);
 

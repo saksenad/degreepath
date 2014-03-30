@@ -9,10 +9,10 @@ CREATE TABLE `courses` (
  `course_number` varchar(255) NOT NULL,
  `name` varchar(255) NOT NULL,
  `GPA` float NOT NULL,
- `Temp_CRN` INT NOT NULL,
  `PreReqs` varchar(1023) NOT NULL,
+ `Temp_CRN` int(11) NOT NULL,
  PRIMARY KEY (`id`)
-);
+)
 
 CREATE TABLE term_availability (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,

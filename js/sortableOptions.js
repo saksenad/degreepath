@@ -1,11 +1,10 @@
 var sortableOptions = {
   connectWith: '.connectedSortable',
   stop: function(event, ui) {
-    var from = this.getAttribute("id");
-    var to = ui.item[0].parentNode.getAttribute("id");
-
+    var to = ui.item[0].parentNode.getAttribute("class");
+    
     /* Don't allow dropping courses into "pending" course selection list */
-    if (to == "pending") {
+    if (to.indexOf("pending") != -1) {
       $(this).sortable('cancel');
     }
   },

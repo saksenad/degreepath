@@ -11,7 +11,7 @@ var sortableOptions = {
   },
   receive: function(event, ui) {
     var action = "change";
-    if (ui.sender.attr("data-term") == "000000") {
+    if (ui.sender.attr("data-term") == "999999") {
       action = "add";
 
       $.ajax({

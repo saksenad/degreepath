@@ -22,7 +22,7 @@ function login() {
 		data:
 		{
 			username: name,
-			password: pass,
+			password: pass
 		}
 	});
 }
@@ -31,6 +31,6 @@ function login() {
 function logout() {
 	$.ajax({
 		type: "DELETE",
-		url: "api/user",
+		url: "api/user"
 	});
 }

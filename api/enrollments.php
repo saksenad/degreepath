@@ -128,21 +128,52 @@ function getTransferEnrollments($user_id) {
 
 //Prereq Processing Functions
 
-/*Returns JSON {"passed":[\list of classes\],
-"failed":[\list of classes\]} to return 
+/*Returns JSON {"pass":[\list of classes\],
+"fail":[\list of classes\]} to return 
 a list of courses whose preReq status changed with 
 moving the course for the given user
 Call the function after the move is updted in the DB*/
 function getPreReqsFailedOnChange($course_id,$user_id){
 
-  return getClassesWithThisPreReq($course_id);
+  global $conn;
+  //Getting class Row
+  $query = sprintf("SELECT * 
+  FROM courses
+  WHERE id = %d;", $course_id);
+
+  $result = mysqli_query($conn, $query) or die('Error, query failed');
+  $paramClassRow = mysqli_fetch_assoc($result);
+
+  //Compiling list of classes that need to be checked
+  $classesEffected=array();
+  $classesEffected=getClassesWithThisPreReq($course_id);
+  array_push($classesEffected,$paramClassRow);
+
+  //Creating list of classes that need to be checked
+  $pass=array();
+  $fail=array();
+
+  foreach($classesEffected as $class){
+    if(passClassPreReq($class,$user_id)){
+      array_push($pass, $class);
+    } else {
+      array_push($fail, $class);
+    }
+    break;
+  }
+
+  return json_encode(array( "pass" => $pass,
+                            "fail" => $fail
+          ));
+
+
 }
 
 /*Checks if the class passed in has prereqs satisfied
-and returns true or false*/
-function checkClassPreReq($course_id,$user_id){
-
-  return false;
+and returns true(if everything is order) or false*/
+function passClassPreReq($courseRow,$user_id){
+  echo var_dump($course_id);
+  return true;
 }
 
 /*Returns a list of classes that have the passed class

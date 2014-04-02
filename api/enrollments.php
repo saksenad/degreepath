@@ -5,6 +5,7 @@
  */
 
 require_once 'api/prefix.php';
+//require_once 'api/prerequisites.php';
 
 $app->post('/enrollment/:action', function($action) use ($app) {
   if ($action == 'change') {
@@ -126,7 +127,7 @@ function getTransferEnrollments($user_id) {
   return $enrollments;
 }
 
-//Prereq Processing Functions
+//Prereq Processing Functions----->Goes to prerequisites.php and uncomment require on top
 
 /*Returns JSON {"pass":[\list of classes\],
 "fail":[\list of classes\]} to return 
@@ -154,25 +155,94 @@ function getPreReqsFailedOnChange($course_id,$user_id){
   $fail=array();
 
   foreach($classesEffected as $class){
-    if(passClassPreReq($class,$user_id)){
+    if(passClassPreReq($class['id'],$user_id)){
       array_push($pass, $class);
     } else {
       array_push($fail, $class);
     }
-    break;
   }
 
   return json_encode(array( "pass" => $pass,
                             "fail" => $fail
           ));
 
-
 }
+
 
 /*Checks if the class passed in has prereqs satisfied
 and returns true(if everything is order) or false*/
-function passClassPreReq($courseRow,$user_id){
-  echo var_dump($course_id);
+function passClassPreReq($course_id,$user_id){
+
+  global $conn;
+  //Getting class Row
+  $query = sprintf("SELECT * 
+  FROM courses
+  WHERE id = %d;", $course_id);
+
+  $result = mysqli_query($conn, $query) or die('Error, query failed');
+  $paramClassRow = mysqli_fetch_assoc($result);
+
+  $preReq=explode(" ",$paramClassRow['PreReqs']);
+  $logicalString="";
+
+  foreach($preReq as $bit){
+    //The String is a class
+    if (strpos($bit, ':') !== FALSE){
+
+      $class=explode(":",$bit);
+
+       $query = sprintf("SELECT * 
+        FROM enrollments
+        INNER JOIN courses ON courses.id = enrollments.course_id
+        WHERE enrollments.user_id =  %d
+        AND courses.subject =  '%s'
+        AND courses.course_number = %d;", $user_id, $class[0], $class[1]);
+
+        $result = mysqli_query($conn, $query) or die('Error, query failed');
+
+        //TODO:Now we have the classes joined that are effected we go through checking that they are all in a previous term than 
+        //that of the current one, also need to get termcode of current class
+
+
+        $enrollments = array();
+        if (mysqli_num_rows($result) > 0) {
+          while ($row = mysqli_fetch_assoc($result)) {
+            array_push($enrollments, $row);
+          }        
+        }
+
+
+
+
+
+
+
+
+
+      $logicalString.="ImmaClass ";
+
+
+    } else {
+
+      //Logic Symbols replaced to get evaluated
+      switch ($bit) {
+        case "(":
+          $logicalString.="( ";
+            break;
+        case ")":
+          $logicalString.=") ";
+            break;
+        case "|":
+          $logicalString.="|| ";
+          break;
+        case "&":
+          $logicalString.="&& ";
+          break;
+      }
+    }
+  }
+
+  echo var_dump($logicalString);
   return true;
 }
 

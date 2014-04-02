@@ -44,6 +44,8 @@ function getEnrollments($user_id, $term_code) {
 }
 
 function changeEnrollment() {
+
+  //Change the enrollment in the DB
   global $conn;
 
   $new_term=$_POST['receiver'];
@@ -60,7 +62,13 @@ function changeEnrollment() {
     $new_term, $user_id, $course_id, $old_term);
 
   $result = mysqli_query($conn, $query) or die('Error, query failed');
+
+  //Getting Classes that failed the PreReqs and previous fails that succedded
+
+  echo getPreReqsFailedOnChange($course_id,$user_id);
+
 }
+
 
 function addEnrollment() {
   global $conn;
@@ -115,8 +123,58 @@ function getTransferEnrollments($user_id) {
     }        
   }
   
-  
   return $enrollments;
+}
+
+//Prereq Processing Functions
+
+/*Returns JSON {"passed":[\list of classes\],
+"failed":[\list of classes\]} to return 
+a list of courses whose preReq status changed with 
+moving the course for the given user
+Call the function after the move is updted in the DB*/
+function getPreReqsFailedOnChange($course_id,$user_id){
+
+  return getClassesWithThisPreReq($course_id);
+}
+
+/*Checks if the class passed in has prereqs satisfied
+and returns true or false*/
+function checkClassPreReq($course_id,$user_id){
+
+  return false;
+}
+
+/*Returns a list of classes that have the passed class
+in their list of PreReqs*/
+function getClassesWithThisPreReq($course_id) {
+   global $conn;
+
+  //Getting class String
+  $query = sprintf("SELECT * 
+  FROM courses
+  WHERE id = %d;", $course_id);
+
+  $result = mysqli_query($conn, $query) or die('Error, query failed');
+  $paramClassRow = mysqli_fetch_assoc($result);
+  $className = $paramClassRow['subject'].":".$paramClassRow['course_number'];
+
+  //Getting List of Classes that have 
+  $classesEffected = array();
+
+  $query = sprintf("SELECT * 
+  FROM courses
+  WHERE PreReqs
+  REGEXP  '.*%s.*' ;", $className);
+  $result = mysqli_query($conn, $query) or die('Error, query failed');
+
+  if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+      array_push($classesEffected, $row);
+    }        
+  }
+
+  return $classesEffected;
 }
 
 ?>

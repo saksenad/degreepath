@@ -1,6 +1,10 @@
 
 USE degreepath;
 
+ALTER TABLE enrollments
+ADD PreReqSatisfied BOOL NOT NULL DEFAULT TRUE;
+
+/*
 DROP TABLE IF EXISTS user_semesters;
 
 CREATE TABLE user_semesters (
@@ -35,4 +39,6 @@ CREATE TABLE `courses` (
  `Temp_CRN` int(11) NOT NULL,
  PRIMARY KEY (`id`)
 );
+
+*/
 

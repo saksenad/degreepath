@@ -23,7 +23,6 @@ var sortableOptions = {
              <img class="remove" src="/img/icons/x.png"></img>'                    
           );
 
-
           $(".sortable li img").on('click', function(event) {
             deleteEnrollment(this);
           });

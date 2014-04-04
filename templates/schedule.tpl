@@ -15,14 +15,14 @@
 <div id="wrapper">
 
   <!-- start: Container -->
-  <div id="container">
+  <div class="container">
 
-    <!-- start: Accordian -->
-    <div id="courses">
-      <div class="span2">
+    <!-- start: Row -->
+    <div class="row">
 
+      <!-- start: Accordian -->
+      <div id="courses" class="span2">
         <div id="accordion">
-
           
             <h3>
               <span class="subject">{$userInfo['major']}</span>
@@ -50,51 +50,53 @@
         </div>
 
       </div>
-    </div>
-    <!-- end: Accordian -->
+      <!-- end: Accordian -->
 
-    <!-- start: Table -->
-    <div id="table">
+      <!-- start: Table -->
+      <div id="table" class="span10">
 
-      <!-- start: Row -->
-  		<div class="row" id="semester-buckets">
+        <!-- start: Row -->
+    		<div class="row" id="semester-buckets">
 
-      {foreach $terms as $term}
-    		<div class="span3">
-          <div id="semester" class="color-cccddd bucket">
-            <h3 id="semester-header" align="center">
-              {$season[substr($term,4,2)]} {substr($term,0,4)}
-              <img class="remove-semester" src="/img/icons/x.png"></img>              
-            </h3>
-            <ul class="sortable connectedSortable" data-term={$term}>
-              {if array_key_exists($term, $enrollments)}
-                {foreach $enrollments[$term] as $enrollment}
-                  {if $enrollment}
-                    <li class="ui-state-default" data-cid={$enrollment['id']}>
-                      <div class="course-title">{$enrollment['subject']} {$enrollment['course_number']} - {$enrollment['name']}</div>
-                      <img class="remove" src="/img/icons/x.png"></img>
-                    </li>
-                  {/if}
-                {/foreach}
-              {/if}
-            </ul>
-          </div>
-    		</div>
-      {/foreach}
-
-        <!-- start: New semester bucket -->
-        <div class="span3">
-            <div id="new-semester" class="color-cccddd bucket">
-              <h3 align="center">New semester</h3>
+        {foreach $terms as $term}
+      		<div class="span3">
+            <div id="semester" class="color-cccddd bucket">
+              <h3 id="semester-header" align="center">
+                {$season[substr($term,4,2)]} {substr($term,0,4)}
+                <img class="remove-semester" src="/img/icons/x.png"></img>              
+              </h3>
+              <ul class="sortable connectedSortable" data-term={$term}>
+                {if array_key_exists($term, $enrollments)}
+                  {foreach $enrollments[$term] as $enrollment}
+                    {if $enrollment}
+                      <li class="ui-state-default" data-cid={$enrollment['id']}>
+                        <div class="course-title">{$enrollment['subject']} {$enrollment['course_number']} - {$enrollment['name']}</div>
+                        <img class="remove" src="/img/icons/x.png"></img>
+                      </li>
+                    {/if}
+                  {/foreach}
+                {/if}
+              </ul>
             </div>
       		</div>
-          <!-- end: New semester bucket -->
+        {/foreach}
 
-  		</div>
-	    <!-- end: Row -->
+          <!-- start: New semester bucket -->
+          <div class="span3">
+              <div id="new-semester" class="color-cccddd bucket">
+                <h3 align="center">New semester</h3>
+              </div>
+        		</div>
+            <!-- end: New semester bucket -->
+
+    		</div>
+	      <!-- end: Row -->
+
+      </div>
+      <!-- end: Table -->
 
     </div>
-    <!-- end: Table -->
+    <!-- end: Row -->
 
   </div>
   <!-- end: Container -->

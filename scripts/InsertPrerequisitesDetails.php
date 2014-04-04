@@ -1,7 +1,5 @@
 <?php
 
-
-
 //Initial Setup
 $dbhost = "localhost";
 $dbuser = "root";
@@ -16,13 +14,13 @@ $curl = curl_init();
 because the CRN should belong to the term that the term code denotes*/
 $termcode=date("Y")."02";
 
-$query = sprintf("SELECT Temp_CRN FROM courses;");
+$query = sprintf("SELECT course_CRN FROM courses;");
 $result = mysqli_query($conn, $query) or die('Error, query failed');
 
 if (mysqli_num_rows($result) > 0) {
 
 	while ($row = mysqli_fetch_assoc($result)) {
-		$crn=$row['Temp_CRN'];
+		$crn=$row['course_CRN'];
 	  	
 	  	//Getting the data from the API
 
@@ -80,8 +78,8 @@ if (mysqli_num_rows($result) > 0) {
 
 		//Inserting PreReq String into DB
 		$updateQuery = sprintf("UPDATE courses
-				SET PreReqs ='%s'
-				WHERE Temp_CRN =%d ;
+				SET prereqs ='%s'
+				WHERE course_CRN =%d ;
 			",$prs,$crn);
 		$updateSuccessful = mysqli_query($conn, $updateQuery) or die('Error, query failed');	
 	}     

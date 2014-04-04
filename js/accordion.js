@@ -49,7 +49,7 @@ $(document).ready(function(){
 
              JSON.parse(courses).forEach(function(course) {
                 console.log(course);
-                var item ='<li data-cid='+course["id"]+'>'+course["subject"]+' '+course["course_number"]+'</li>';
+                var item ='<li data-cid='+course["id"]+' data-credits='+course['credit_hours']+'>'+course["subject"]+' '+course["course_number"]+'</li>';
                 newDiv += item;
              });
 

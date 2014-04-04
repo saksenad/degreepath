@@ -26,6 +26,16 @@ var sortableOptions = {
           $(".sortable li img").on('click', function(event) {
             deleteEnrollment(this);
           });
+
+          /* Update semester with correct number of credit hours */
+          var list_id = $(event.toElement).parent().attr("data-term");
+          var item_id = $(event.toElement).attr("data-cid");
+          var credit_hours_div = $("ul[data-term="+list_id+"]").parent().children().last();
+          var old_credits = credit_hours_div.html().split(" ")[0];
+          var added = $("ul[data-term="+list_id+"] > li[data-cid="+item_id+"]").attr('data-credits');
+          var new_credits = parseInt(old_credits) + parseInt(added);
+          credit_hours_div.html(new_credits+" credit hours");
+
         }
       });
     }

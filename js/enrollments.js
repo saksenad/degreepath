@@ -21,7 +21,16 @@ function deleteEnrollment(x) {
       sender: list_id
     },
     success: function() {
+      /* Update semester with correct number of credit hours */
+      var credit_hours_div = $("ul[data-term="+list_id+"]").parent().children().last();
+      var old_credits = credit_hours_div.html().split(" ")[0];
+      var removed = $("ul[data-term="+list_id+"] > li[data-cid="+item_id+"]").attr('data-credits');
+      var new_credits = parseInt(old_credits) - parseInt(removed);
+      credit_hours_div.html(new_credits+" credit hours");
+
+      /* Remove div */
       $("ul[data-term="+list_id+"] > li[data-cid="+item_id+"]").remove();
+
     }
   });
 }

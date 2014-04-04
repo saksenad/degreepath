@@ -32,7 +32,7 @@
             <div id="accordionWrapper" class="color-cccddd">
               <ul class="pending connectedSortable" data-term="999999">    
                 {foreach $courses as $course}
-                  <li data-cid={$course['id']}>{$course['subject']} {$course['course_number']}</li>
+                  <li data-cid={$course['id']} data-credits={$course['credit_hours']}>{$course['subject']} {$course['course_number']}</li>
                 {/foreach}
               </ul>
             </div>
@@ -61,6 +61,7 @@
         {foreach $terms as $term}
       		<div class="span3">
             <div id="semester" class="color-cccddd bucket">
+              {assign var='credits' value=0}
               <h3 id="semester-header" align="center">
                 {$season[substr($term,4,2)]} {substr($term,0,4)}
                 <img class="remove-semester" src="/img/icons/x.png"></img>              
@@ -69,7 +70,8 @@
                 {if array_key_exists($term, $enrollments)}
                   {foreach $enrollments[$term] as $enrollment}
                     {if $enrollment}
-                      <li class="ui-state-default" data-cid={$enrollment['id']}>
+                      {assign var='credits' value=$credits+$enrollment['credit_hours']}
+                      <li class="ui-state-default" data-cid={$enrollment['id']} data-credits={$enrollment['credit_hours']}>
                         <div class="course-title">{$enrollment['subject']} {$enrollment['course_number']} - {$enrollment['name']}</div>
                         <img class="remove" src="/img/icons/x.png"></img>
                       </li>
@@ -77,6 +79,7 @@
                   {/foreach}
                 {/if}
               </ul>
+              <h5 class="pull-right" style="margin-right:10px">{$credits} credit hours</h5>
             </div>
       		</div>
         {/foreach}

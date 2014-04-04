@@ -75,11 +75,14 @@
 }
 
 #courses {
+  float: left;
   margin-left: 173px;
 }
 
 #table {
+  float: right;
   margin-right: 173px;
+  width: 700px;
 }
 
 #profile {

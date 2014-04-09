@@ -7,6 +7,7 @@
 require_once 'api/prefix.php';
 require_once 'api/prerequisites.php';
 
+
 $app->post('/enrollment/:action', function($action) use ($app) {
   if ($action == 'change') {
     changeEnrollment();

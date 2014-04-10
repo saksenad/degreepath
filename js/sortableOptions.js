@@ -22,6 +22,7 @@ var sortableOptions = {
             '<div class="course-title">'+event.toElement.innerHTML+' - '+JSON.parse(data)["name"]+'</div> \
              <img class="remove" src="/img/icons/x.png"></img>'                    
           );
+
           $(".sortable li img").on('click', function(event) {
             deleteEnrollment(this);
           });

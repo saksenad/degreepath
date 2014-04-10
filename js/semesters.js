@@ -13,7 +13,7 @@ function addSemester(bucket) {
   var new_term = autoIncrementSemester(current_term);
 
   $.ajax({
-    url:"/api/user/semesters",
+    url:"/api/users/semesters",
     type:'POST',
     data: {
       term_code: new_term
@@ -72,7 +72,7 @@ function deleteSemester(x) {
   var term_code = $(x).parent().parent().children().last().attr("data-term");
 
   $.ajax({
-    url:"/api/user/semesters/"+term_code,
+    url:"/api/users/"+term_code,
     type:'DELETE',
     success: function() {
       $(x).parent().parent().parent().remove(); 

@@ -32,7 +32,7 @@
             <div id="accordionWrapper" class="color-cccddd">
               <ul class="pending connectedSortable" data-term="999999">    
                 {foreach $courses as $course}
-                  <li data-cid={$course['id']} data-credits={$course['credit_hours']}>{$course['subject']} {$course['course_number']}</li>
+                  <li data-cid={$course['id']} data-credits={$course['credit_hours']} data-gpa={$course['GPA']}>{$course['subject']} {$course['course_number']}</li>
                 {/foreach}
               </ul>
             </div>
@@ -62,6 +62,7 @@
       		<div class="span3">
             <div id="semester" class="color-cccddd bucket">
               {assign var='credits' value=0}
+              {assign var='points' value=0}
               <h3 id="semester-header" align="center">
                 {$season[substr($term,4,2)]} {substr($term,0,4)}
                 <img class="remove-semester" src="/img/icons/x.png"></img>              
@@ -71,15 +72,23 @@
                   {foreach $enrollments[$term] as $enrollment}
                     {if $enrollment}
                       {assign var='credits' value=$credits+$enrollment['credit_hours']}
-                      <li class="ui-state-default" data-cid={$enrollment['id']} data-credits={$enrollment['credit_hours']}>
+                      {assign var='points'  value=$points+$enrollment['credit_hours']*$enrollment['GPA']}
+                      <li class="ui-state-default" data-cid={$enrollment['id']} data-credits={$enrollment['credit_hours']} data-gpa={$enrollment['GPA']}>
                         <div class="course-title">{$enrollment['subject']} {$enrollment['course_number']} - {$enrollment['name']}</div>
                         <img class="remove" src="/img/icons/x.png"></img>
                       </li>
                     {/if}
                   {/foreach}
+                  
+                  {if $credits != 0}
+                    {assign var='avg_gpa' value=$points/$credits}
+                  {else}
+                    {assign var='avg_gpa' value=0}
+                  {/if}
                 {/if}
               </ul>
-              <h5 class="pull-right" style="margin-right:10px">{$credits} credit hours</h5>
+              <h5 class="pull-right" style="margin-right:10px">{$avg_gpa} GPA</h5>
+              <h5 class="pull-left" style="margin-left:10px">{$credits} credit hours</h5>
             </div>
       		</div>
         {/foreach}

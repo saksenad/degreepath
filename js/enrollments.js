@@ -22,15 +22,27 @@ function deleteEnrollment(x) {
     },
     success: function() {
       /* Update semester with correct number of credit hours */
-      var credit_hours_div = $("ul[data-term="+list_id+"]").parent().children().last();
+      var children = $("ul[data-term="+list_id+"]").parent().children();
+
+      var credit_hours_div = children.last();
       var old_credits = credit_hours_div.html().split(" ")[0];
-      var removed = $("ul[data-term="+list_id+"] > li[data-cid="+item_id+"]").attr('data-credits');
-      var new_credits = parseInt(old_credits) - parseInt(removed);
+      var removed_credits = $("ul[data-term="+list_id+"] > li[data-cid="+item_id+"]").attr('data-credits');
+      var new_credits = parseInt(old_credits) - parseInt(removed_credits);
       credit_hours_div.html(new_credits+" credit hours");
+
+      /* Update GPA */
+      var gpa_div = children.filter(":nth-last-child(2)");
+      var old_gpa = gpa_div.html().split(" ")[0];
+      var old_points = parseFloat(old_gpa) * parseInt(old_credits);
+      var removed_gpa = $("ul[data-term="+list_id+"] > li[data-cid="+item_id+"]").attr('data-gpa');
+      var removed_points = parseFloat(removed_gpa) * parseInt(removed_credits);
+      var new_points = old_points - removed_points;
+      var new_gpa = new_points / new_credits;
+      new_gpa = new_gpa.toFixed(2);
+      gpa_div.html(new_gpa+" GPA");
 
       /* Remove div */
       $("ul[data-term="+list_id+"] > li[data-cid="+item_id+"]").remove();
-
     }
   });
 }

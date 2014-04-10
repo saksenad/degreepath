@@ -1,9 +1,25 @@
 
 USE degreepath;
 
+DROP TABLE IF EXISTS courses;
+
+CREATE TABLE courses (
+  id int(10) unsigned NOT NULL AUTO_INCREMENT,
+  subject varchar(255) NOT NULL,
+  course_number varchar(255) NOT NULL,
+  credit_hours int(10) unsigned NOT NULL,
+  name varchar(255) NOT NULL,
+  GPA float NOT NULL,
+  prereqs varchar(1023) NOT NULL,
+  course_CRN int(11) NOT NULL,
+ PRIMARY KEY (id)
+);
+
+
+/*
 ALTER TABLE enrollments
 ADD PreReqSatisfied BOOL NOT NULL DEFAULT TRUE;
-
+*/
 /*
 DROP TABLE IF EXISTS user_semesters;
 

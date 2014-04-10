@@ -175,6 +175,52 @@ function crypt_verify($username, $password, $hash) {
 }
 
 
+
+
+/* Methods for getting assets owned by a user */
+
+$app->get("/users/semesters", function() {
+  $user_id = $_SESSION['user_id'];
+	return json_encode(semestersForUser($user_id));
+});
+
+$app->post("/users/semesters", function() {
+  $user_id = $_SESSION['user_id'];
+	addUserSemester($user_id, $_POST['term_code']);
+});
+
+$app->delete("/users/:term_code", function($term_code) {
+  $user_id = $_SESSION['user_id'];
+	removeUserSemester($user_id, $term_code);
+});
+
+
+function addUserSemester($user_id, $term_code) {
+	global $conn;
+	$query = sprintf("INSERT INTO user_semesters (user_id, term_code)
+			  VALUES (%d, %d)", $user_id, $term_code);
+	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));
+}
+
+function removeUserSemester($user_id, $term_code) {
+	global $conn; 
+	$query = sprintf("DELETE FROM user_semesters WHERE user_id = %d AND term_code = %d", $user_id, $term_code);
+	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));
+}
+
+function semestersForUser($user_id) {
+	global $conn; 
+	$query = sprintf("SELECT term_code FROM user_semesters WHERE user_id = %d", $user_id);
+	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));
+	$semesters = array();
+  if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        array_push($semesters, $row['term_code']);
+      }  
+    }
+	return $semesters;
+}
+
 function getUserInfo($user_id) {
   global $conn;
 	$query = sprintf("SELECT username, email, first_name, last_name, major, minor

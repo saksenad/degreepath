@@ -48,6 +48,7 @@ var sortableOptions = {
         var credit_hours_div = children.last();
         var old_credits = credit_hours_div.html().split(" ")[0];
         var added_credits = $("ul[data-term="+to+"] > li[data-cid="+cid+"]").attr('data-credits');
+        if (added_credits == null) added_credits = 0;
         var new_credits = parseInt(old_credits) + parseInt(added_credits);
         credit_hours_div.html(new_credits+" credit hours");
 
@@ -56,6 +57,7 @@ var sortableOptions = {
         var old_gpa = gpa_div.html().split(" ")[0];
         var old_points = parseFloat(old_gpa) * parseInt(old_credits);
         var added_gpa = $("ul[data-term="+to+"] > li[data-cid="+cid+"]").attr('data-gpa');
+        if (added_gpa == null) added_gpa = 0;
         var added_points = parseFloat(added_gpa) * parseInt(added_credits);
         var new_points = old_points + added_points;
         var new_gpa = (new_credits > 0)? (new_points / new_credits) : 0;
@@ -68,6 +70,7 @@ var sortableOptions = {
           var credit_hours_div = children.last();
           var old_credits = credit_hours_div.html().split(" ")[0];
           var removed_credits = $("ul[data-term="+to+"] > li[data-cid="+cid+"]").attr('data-credits');
+          if (removed_credits == null) removed_credits = 0;
           var new_credits = parseInt(old_credits) - parseInt(removed_credits);
           credit_hours_div.html(new_credits+" credit hours");
 
@@ -76,6 +79,7 @@ var sortableOptions = {
           var old_gpa = gpa_div.html().split(" ")[0];
           var old_points = parseFloat(old_gpa) * parseInt(old_credits);
           var removed_gpa = $("ul[data-term="+to+"] > li[data-cid="+cid+"]").attr('data-gpa');
+          if (removed_gpa == null) removed_gpa = 0;
           var removed_points = parseFloat(removed_gpa) * parseInt(removed_credits);
           var new_points = old_points - removed_points;
           var new_gpa = (new_credits > 0)? (new_points / new_credits) : 0;

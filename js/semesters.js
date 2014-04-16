@@ -69,13 +69,19 @@ function displayTermName(term_code) {
 }
 
 function deleteSemester(x) {
-  //Delete semester bucket
   var term_code = $(x).parent().parent().children('ul').attr("data-term");
 
   $.ajax({
     url:"/api/users/"+term_code,
     type:'DELETE',
     success: function() {
+      // Delete enrollments in bucket
+      var children = $("ul[data-term="+term_code+"]").children();
+      children.each(function(index, element) {
+        deleteEnrollment($(element).find('img'));
+      });
+
+      // Delete semester bucket
       $(x).parent().parent().parent().remove(); 
     }
   });

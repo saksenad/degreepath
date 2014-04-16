@@ -10,12 +10,16 @@ var sortableOptions = {
   },
   receive: function(event, ui) {
     var action = "change";
+    var to = this.getAttribute("data-term");
+    var from = ui.sender.attr("data-term");
+    var cid = ui.item.attr("data-cid");
+
     if (ui.sender.attr("data-term") == "999999") {
       action = "add";
 
       $.ajax({
         type: "GET",
-        url: "api/course/"+ui.item.attr("data-cid"),
+        url: "api/course/"+cid,
         success: function(data) {
           /* Update UI element with the course description */
           $(event.toElement).html(
@@ -26,28 +30,6 @@ var sortableOptions = {
           $(".sortable li img").on('click', function(event) {
             deleteEnrollment(this);
           });
-
-          /* Update semester with correct number of credit hours */
-          var list_id = $(event.toElement).parent().attr("data-term");
-          var item_id = $(event.toElement).attr("data-cid");
-          var children = $("ul[data-term="+list_id+"]").parent().children();
-          var credit_hours_div = children.last();
-          var old_credits = credit_hours_div.html().split(" ")[0];
-          var added_credits = $("ul[data-term="+list_id+"] > li[data-cid="+item_id+"]").attr('data-credits');
-          var new_credits = parseInt(old_credits) + parseInt(added_credits);
-          credit_hours_div.html(new_credits+" credit hours");
-
-          /* Update GPA */
-          var gpa_div = children.filter(":nth-last-child(2)");
-          var old_gpa = gpa_div.html().split(" ")[0];
-          var old_points = parseFloat(old_gpa) * parseInt(old_credits);
-          var added_gpa = $("ul[data-term="+list_id+"] > li[data-cid="+item_id+"]").attr('data-gpa');
-          var added_points = parseFloat(added_gpa) * parseInt(added_credits);
-          var new_points = old_points + added_points;
-          var new_gpa = new_points / new_credits;
-          new_gpa = new_gpa.toFixed(2);
-          gpa_div.html(new_gpa+" GPA");
-
         }
       });
     }
@@ -56,9 +38,51 @@ var sortableOptions = {
       url: "api/enrollment/"+action,
       data:
       {
-        receiver: this.getAttribute("data-term"),
-        course_id: ui.item.attr("data-cid"),
-        sender: ui.sender.attr("data-term")
+        receiver: to,
+        course_id: cid,
+        sender: from
+      },
+      success: function(data) {
+        /* Update semester with correct number of credit hours */
+        var children = $("ul[data-term="+to+"]").parent().children();
+        var credit_hours_div = children.last();
+        var old_credits = credit_hours_div.html().split(" ")[0];
+        var added_credits = $("ul[data-term="+to+"] > li[data-cid="+cid+"]").attr('data-credits');
+        var new_credits = parseInt(old_credits) + parseInt(added_credits);
+        credit_hours_div.html(new_credits+" credit hours");
+
+        /* Update GPA */
+        var gpa_div = children.filter(":nth-last-child(2)");
+        var old_gpa = gpa_div.html().split(" ")[0];
+        var old_points = parseFloat(old_gpa) * parseInt(old_credits);
+        var added_gpa = $("ul[data-term="+to+"] > li[data-cid="+cid+"]").attr('data-gpa');
+        var added_points = parseFloat(added_gpa) * parseInt(added_credits);
+        var new_points = old_points + added_points;
+        var new_gpa = new_points / new_credits;
+        new_gpa = new_gpa.toFixed(2);
+        gpa_div.html(new_gpa+" GPA");
+
+        if(action == "change") {
+          /* Update semester with correct number of credit hours */
+          var children = $("ul[data-term="+from+"]").parent().children();
+          var credit_hours_div = children.last();
+          var old_credits = credit_hours_div.html().split(" ")[0];
+          var removed_credits = $("ul[data-term="+to+"] > li[data-cid="+cid+"]").attr('data-credits');
+          var new_credits = parseInt(old_credits) - parseInt(removed_credits);
+          credit_hours_div.html(new_credits+" credit hours");
+
+          /* Update GPA */
+          var gpa_div = children.filter(":nth-last-child(2)");
+          var old_gpa = gpa_div.html().split(" ")[0];
+          var old_points = parseFloat(old_gpa) * parseInt(old_credits);
+          var removed_gpa = $("ul[data-term="+to+"] > li[data-cid="+cid+"]").attr('data-gpa');
+          var removed_points = parseFloat(removed_gpa) * parseInt(removed_credits);
+          var new_points = old_points - removed_points;
+          var new_gpa = (new_credits > 0)? (new_points / new_credits) : 0;
+          new_gpa = new_gpa.toFixed(2);
+          gpa_div.html(new_gpa+" GPA");
+        }
+
       }
     });
   } 

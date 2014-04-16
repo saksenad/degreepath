@@ -29,7 +29,7 @@ function addSemester(bucket) {
             <ul class="sortable connectedSortable" data-term="'
              +new_term+'"> \
             </ul> \
-            <h5 class="pull-right" style="margin-right:10px">0 GPA</h5> \
+            <h5 class="pull-right" style="margin-right:10px">0.00 GPA</h5> \
             <h5 class="pull-left" style="margin-left:10px">0 credit hours</h5> \
           </div> \
         </div>'

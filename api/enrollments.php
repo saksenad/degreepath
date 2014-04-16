@@ -63,11 +63,6 @@ function changeEnrollment() {
     $new_term, $user_id, $course_id, $old_term);
 
   $result = mysqli_query($conn, $query) or die('Error, query failed');
-
-  //Getting Classes that failed the PreReqs and previous fails that succedded
-
-  echo getPreReqsFailedOnChange($course_id,$user_id);
-
 }
 
 

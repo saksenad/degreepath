@@ -32,7 +32,6 @@ var sortableOptions = {
           var item_id = $(event.toElement).attr("data-cid");
           var children = $("ul[data-term="+list_id+"]").parent().children();
           var credit_hours_div = children.last();
-          console.log(credit_hours_div);
           var old_credits = credit_hours_div.html().split(" ")[0];
           var added_credits = $("ul[data-term="+list_id+"] > li[data-cid="+item_id+"]").attr('data-credits');
           var new_credits = parseInt(old_credits) + parseInt(added_credits);

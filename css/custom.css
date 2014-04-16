@@ -10,6 +10,11 @@
   padding: 0;
 }
 
+#accordionWrapper ul {
+  max-height: 300px;
+  overflow: auto;
+}
+
 #accordion {
   float: left;
   list-style-type: none;

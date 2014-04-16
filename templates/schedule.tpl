@@ -87,7 +87,7 @@
                   {/if}
                 {/if}
               </ul>
-              <h5 class="pull-right" style="margin-right:10px">{$avg_gpa} GPA</h5>
+              <h5 class="pull-right" style="margin-right:10px">{round($avg_gpa, 2)} GPA</h5>
               <h5 class="pull-left" style="margin-left:10px">{$credits} credit hours</h5>
             </div>
       		</div>

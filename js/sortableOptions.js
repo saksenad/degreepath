@@ -58,7 +58,7 @@ var sortableOptions = {
         var added_gpa = $("ul[data-term="+to+"] > li[data-cid="+cid+"]").attr('data-gpa');
         var added_points = parseFloat(added_gpa) * parseInt(added_credits);
         var new_points = old_points + added_points;
-        var new_gpa = new_points / new_credits;
+        var new_gpa = (new_credits > 0)? (new_points / new_credits) : 0;
         new_gpa = new_gpa.toFixed(2);
         gpa_div.html(new_gpa+" GPA");
 

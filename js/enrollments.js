@@ -37,7 +37,7 @@ function deleteEnrollment(x) {
       var removed_gpa = $("ul[data-term="+list_id+"] > li[data-cid="+item_id+"]").attr('data-gpa');
       var removed_points = parseFloat(removed_gpa) * parseInt(removed_credits);
       var new_points = old_points - removed_points;
-      var new_gpa = new_points / new_credits;
+      var new_gpa = (new_credits > 0)? (new_points / new_credits) : 0;
       new_gpa = new_gpa.toFixed(2);
       gpa_div.html(new_gpa+" GPA");
 

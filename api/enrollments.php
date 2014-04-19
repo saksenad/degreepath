@@ -63,6 +63,7 @@ function changeEnrollment() {
     $new_term, $user_id, $course_id, $old_term);
 
   $result = mysqli_query($conn, $query) or die('Error, query failed');
+  echo getPreReqsFailedOnChange($course_id,$user_id);
 }
 
 
@@ -80,6 +81,7 @@ function addEnrollment() {
     $course_id, $user_id, $term);
 
   $result = mysqli_query($conn, $query) or die('Error, query failed');
+  echo getPreReqsFailedOnChange($course_id,$user_id);
 }
 
 function deleteEnrollment() {
@@ -97,6 +99,7 @@ function deleteEnrollment() {
     $user_id, $course_id, $term_id);
 
   $result = mysqli_query($conn, $query) or die('Error, query failed');
+  echo getPreReqsFailedOnChange($course_id,$user_id);
 }
 
 function getTransferEnrollments($user_id) {

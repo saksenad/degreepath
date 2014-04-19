@@ -12,7 +12,7 @@ Call the function after the move is updted in the DB*/
 function getPreReqsFailedOnChange($course_id,$user_id){
 
   global $conn;
-  //Getting class Row
+  //Getting param class Row
   $query = sprintf("SELECT * 
   FROM courses
   WHERE id = %d;", $course_id);
@@ -20,9 +20,8 @@ function getPreReqsFailedOnChange($course_id,$user_id){
   $result = mysqli_query($conn, $query) or die('Error, query failed');
   $paramClassRow = mysqli_fetch_assoc($result);
 
-  //Compiling list of classes that need to be checked
-  $classesEffected=array();
-  $classesEffected=getClassesWithThisPreReq($course_id);
+  //Compiling list of classes that need to be checked into an array
+  $classesEffected=getClassesWithThisPreReq($course_id,$user_id);
   array_push($classesEffected,$paramClassRow);
 
   //Creating list of classes that need to be checked
@@ -37,10 +36,32 @@ function getPreReqsFailedOnChange($course_id,$user_id){
     }
   }
 
+  //Update the database for PreReqs failed and prev fails passed
+
+  //Classes passed DB update
+  foreach($pass as $class){
+   $query = sprintf("UPDATE enrollments 
+    SET PreReqSatisfied=1
+    WHERE user_id = %d
+    AND course_id = %d;", $user_id, $class['id']);
+
+   $result = mysqli_query($conn, $query) or die('Error, query failed');
+  }
+
+  //Classes passed DB update
+  foreach($fail as $class){
+   $query = sprintf("UPDATE enrollments 
+    SET PreReqSatisfied=0
+    WHERE user_id = %d
+    AND course_id = %d;", $user_id, $class['id']);
+
+   $result = mysqli_query($conn, $query) or die('Error, query failed');
+  }
+
   return json_encode(array( "pass" => $pass,
                             "fail" => $fail
           ));
-
+  
 }
 
 
@@ -59,15 +80,24 @@ function passClassPreReq($course_id,$user_id){
   $result = mysqli_query($conn, $query) or die('Error, query failed');
   $paramClassRow = mysqli_fetch_assoc($result);
 
-  $preReq=explode(" ",$paramClassRow['PreReqs']);
-  $logicalString="";
 
+  //If the class has no PreReqs
+  if(strlen($paramClassRow['prereqs'])<6){
+    return true;
+  }
+
+  //Get different parts of the prereq string
+  $preReq=explode(" ",$paramClassRow['prereqs']);
+  $logicalString="";
+ 
   foreach($preReq as $bit){
+
     //The String is a class
     if (strpos($bit, ':') !== FALSE){
 
       $class=explode(":",$bit);
 
+      //Get current prereq Row
        $query = sprintf("SELECT * 
         FROM enrollments
         INNER JOIN courses ON courses.id = enrollments.course_id
@@ -75,23 +105,24 @@ function passClassPreReq($course_id,$user_id){
         AND courses.subject =  '%s'
         AND courses.course_number = %d;", $user_id, $class[0], $class[1]);
 
-
         $result = mysqli_query($conn, $query) or die('Error, query failed');
 
         //TODO:Fix this logic and get eval to work and make sure pass and fail contain the correct lists of classes
 
         if (mysqli_num_rows($result) > 0) {
-          $classRow = mysqli_fetch_assoc($result); 
-
+          $classRow = mysqli_fetch_assoc($result);
           if(intval($classRow['term_code'])<intval($paramClassRow['term_code'])){
-
           	//If the prereq class was taken before the Param class
           	$logicalString.="true ";
+
           } else {
 
           	//If the prereq class was not take before:
           	// In the same sem or after or not there at all
-          	$logicalString.="false ";
+            if(intval($classRow['term_code'])>=intval($paramClassRow['term_code'])){
+          	   $logicalString.="false ";
+            }
+
           }
         } else {
         	//If PreReq Class not enrolled in
@@ -100,7 +131,6 @@ function passClassPreReq($course_id,$user_id){
 
 
     } else {
-
       //Logic Symbols replaced to get evaluated
       switch ($bit) {
         case "(":
@@ -119,16 +149,13 @@ function passClassPreReq($course_id,$user_id){
     }
   }
 
-  echo $logicalString;
-  //TODO NULL return by eval cleaning
-  //Returned when class effected not in enrollement
-  echo var_dump(eval("return ".$logicalString.";"));
-  return true;
+  $preReqCheckResult=eval("return (".$logicalString.");");
+  return $preReqCheckResult;
 }
 
 /*Returns a list of classes that have the passed class
 in their list of PreReqs*/
-function getClassesWithThisPreReq($course_id) {
+function getClassesWithThisPreReq($course_id,$user_id) {
    global $conn;
 
   //Getting class String
@@ -144,9 +171,12 @@ function getClassesWithThisPreReq($course_id) {
   $classesEffected = array();
 
   $query = sprintf("SELECT * 
-  FROM courses
-  WHERE PreReqs
-  REGEXP  '.*%s.*' ;", $className);
+        FROM enrollments
+        INNER JOIN courses ON courses.id = enrollments.course_id
+        WHERE enrollments.user_id =  %d
+  AND enrollments.term_code<999999 AND prereqs
+  REGEXP  '.*%s.*' ;", $user_id,$className);
+
   $result = mysqli_query($conn, $query) or die('Error, query failed');
 
   if (mysqli_num_rows($result) > 0) {

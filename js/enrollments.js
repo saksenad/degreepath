@@ -20,7 +20,16 @@ function deleteEnrollment(x) {
       course_id: item_id,
       sender: list_id
     },
-    success: function() {
+    success: function(preReqData) {
+      /*Updating the div classes for classes that pass and fail preReqs*/
+        var preReqChangesJSON=JSON.parse(preReqData);
+        $.each(preReqChangesJSON['pass'], function(index, classArray) {
+          $("[data-cid="+classArray['id']+"]").addClass('preReqPassed').removeClass('preReqFailed');
+        });
+        $.each(preReqChangesJSON['fail'], function(index, classArray) {
+          $("[data-cid="+classArray['id']+"]").addClass('preReqFailed').removeClass('preReqPassed');
+        });
+        
       /* Update semester with correct number of credit hours */
       var children = $("ul[data-term="+list_id+"]").parent().children();
 

@@ -73,7 +73,12 @@
                     {if $enrollment}
                       {assign var='credits' value=$credits+$enrollment['credit_hours']}
                       {assign var='points'  value=$points+$enrollment['credit_hours']*$enrollment['GPA']}
-                      <li class="ui-state-default" data-cid={$enrollment['id']} data-credits={$enrollment['credit_hours']} data-gpa={$enrollment['GPA']}>
+                      {assign var='preReqResult' value='preReqFailed'}
+                      {if $enrollment['PreReqSatisfied']==1}
+                        {assign var='preReqResult' value='preReqPassed'}
+                      {/if}
+                      {assign var='cssClasses' value=$preReqResult|cat:" "|cat:"ui-state-default"}
+                      <li class="{$cssClasses}" data-cid={$enrollment['id']} data-credits={$enrollment['credit_hours']} data-gpa={$enrollment['GPA']}>
                         <div class="course-title">{$enrollment['subject']} {$enrollment['course_number']} - {$enrollment['name']}</div>
                         <img class="remove" src="/img/icons/x.png"></img>
                       </li>

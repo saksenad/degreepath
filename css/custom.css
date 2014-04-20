@@ -67,6 +67,14 @@
   list-style-type: none;
 }
 
+.preReqPassed {
+  background: #5c86bd !important;
+}
+
+.preReqFailed {
+  background: #BD5C5C !important;
+}
+
 .sortable li, .pending li {
   background: #5c86bd;
   border-radius: 10px;

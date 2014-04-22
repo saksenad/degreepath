@@ -10,6 +10,13 @@ $(function() {
     });
 });
 
+$(function() {
+    $("#transfer-accordion").accordion({
+        collapsible: true,
+        heightStyle: "content"
+    });
+});
+
 /*Create the dropdwon auto correcting menu*/
 $(document).ready(function() {
 	$.ajax({

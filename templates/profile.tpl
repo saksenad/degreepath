@@ -33,17 +33,28 @@
 
 						  <label for="major"><span>Major:</span></label>
 						  <select class="form-control" name="major">
-                <option value="" selected>{$userInfo['major']}</option>
                 {foreach $departments as $dept}
-                	<option value={$dept}>{$dept}</option>
+                	{if $userInfo['major'] == $dept}
+                    <option value={$dept} selected>{$dept}</option>
+                  {else}
+                	  <option value={$dept}>{$dept}</option>
+                  {/if}
                 {/foreach}
               </select>
 
 						  <label for="minor"><span>Minor:</span></label>
 						  <select class="form-control" name="minor">
-                <option value="" selected>{$userInfo['minor']}</option>
+                {if $userInfo['minor']}
+                  <option value="">None</option>
+                {else}
+                  <option value="" selected>None</option>
+                {/if}
                 {foreach $departments as $dept}
-                	<option value={$dept}>{$dept}</option>
+                  {if $userInfo['minor'] == $dept}
+                    <option value={$dept} selected>{$dept}</option>
+                  {else}
+                	  <option value={$dept}>{$dept}</option>
+                  {/if}
                 {/foreach}
               </select>
 

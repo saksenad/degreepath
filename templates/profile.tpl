@@ -100,6 +100,23 @@
           <br/>
 
           <!-- start: Accordian -->
+          <div id="transfer-accordion">
+          
+            <h3>
+              <span class="subject">{$userInfo['major']}</span>
+              <img class="remove-subject" src="/img/icons/x.png"></img> 
+            </h3>
+            {assign var='courses' value=getCourses($userInfo['major'])}
+            <div id="transfer-accordionWrapper" class="color-cccddd">
+              <ul class="pending connectedSortable" data-term="999999">    
+                {foreach $courses as $course}
+                  <li data-cid={$course['id']} data-credits={$course['credit_hours']} data-gpa={$course['GPA']}>{$course['subject']} {$course['course_number']}</li>
+                {/foreach}
+              </ul>
+            </div>
+          
+
+        </div>
           <!-- end: Accordian -->
 
           <!-- start: Transfer Credit Bucket -->

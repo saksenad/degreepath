@@ -114,6 +114,23 @@
                 {/foreach}
               </ul>
             </div>
+
+            <!-- start: User minor -->
+            {if $userInfo['minor']}
+              <h3>
+                <span class="subject">{$userInfo['minor']}</span>
+                <img class="remove-subject" src="/img/icons/x.png"></img> 
+              </h3>
+              {assign var='courses' value=getCourses($userInfo['minor'])}
+              <div id="transfer-accordionWrapper" class="color-cccddd">
+                <ul class="pending connectedSortable" data-term="999999">    
+                  {foreach $courses as $course}
+                    <li data-cid={$course['id']} data-credits={$course['credit_hours']} data-gpa={$course['GPA']}>{$course['subject']} {$course['course_number']}</li>
+                  {/foreach}
+                </ul>
+              </div>
+            {/if}
+            <!-- end: User Minor -->
           
 
         </div>

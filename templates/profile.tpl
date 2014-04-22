@@ -46,12 +46,11 @@
                 	<option value={$dept}>{$dept}</option>
                 {/foreach}
               </select>
-           
-          </div>
+
+          <div id="account"></div> 
           <!-- end: Profile Info -->	
 
 				  <!-- start: Account Info -->	
-          <div id="account">
             
 					    <h3>Account Information</h3>
               <br/>
@@ -85,7 +84,7 @@
           <p>
             For more accurate information about prerequisites and requirements to graduate,
             please enter any courses that you already have credit for from another institution
-            of from AP/IB courses.
+            or from AP/IB courses.
           </p>
           <br/>
 

@@ -12,7 +12,7 @@ CREATE TABLE courses (
   GPA float NOT NULL,
   prereqs varchar(1023) NOT NULL,
   course_CRN int(11) NOT NULL,
- PRIMARY KEY (id)
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE term_availability (
@@ -54,6 +54,6 @@ CREATE TABLE enrollments (
   course_id int(10) unsigned NOT NULL,
   user_id int(10) NOT NULL,
   term_code varchar(255) NOT NULL,
-  PreReqSatisfied BOOL NOT NULL DEFAULT TRUE;
+  PreReqSatisfied BOOL NOT NULL DEFAULT TRUE,
   PRIMARY KEY (id)
 );

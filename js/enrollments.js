@@ -21,6 +21,12 @@ function deleteEnrollment(x) {
       sender: list_id
     },
     success: function(preReqData) {
+      /* Do not update prereqs/credit hours/GPA if course is on transfer page */
+      if(list_id == "000000") {
+        $("ul[data-term="+list_id+"] > li[data-cid="+item_id+"]").remove();
+        return;
+      }
+
       /*Updating the div classes for classes that pass and fail preReqs*/
         var preReqChangesJSON=JSON.parse(preReqData);
         $.each(preReqChangesJSON['pass'], function(index, classArray) {

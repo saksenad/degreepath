@@ -14,7 +14,7 @@ var sortableOptions = {
     var from = ui.sender.attr("data-term");
     var cid = ui.item.attr("data-cid");
 
-    if (ui.sender.attr("data-term") == "999999") {
+    if (from == "999999" || from == "888888") {
       action = "add";
 
       $.ajax({
@@ -43,6 +43,11 @@ var sortableOptions = {
         sender: from
       },
       success: function(preReqData) {
+        /* Do not update prereqs/credit hours/GPA if course is on transfer page */
+        if(from == "888888") {
+          return;
+        }
+
         /*Updating the div classes for classes that pass and fail preReqs*/
         var preReqChangesJSON=JSON.parse(preReqData);
         $.each(preReqChangesJSON['pass'], function(index, classArray) {

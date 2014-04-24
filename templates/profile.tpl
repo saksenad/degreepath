@@ -108,7 +108,7 @@
             </h3>
             {assign var='courses' value=getCourses($userInfo['major'])}
             <div id="transfer-accordionWrapper" class="color-cccddd">
-              <ul class="pending connectedSortable" data-term="999999">    
+              <ul class="pending connectedSortable" data-term="888888">    
                 {foreach $courses as $course}
                   <li data-cid={$course['id']} data-credits={$course['credit_hours']} data-gpa={$course['GPA']}>{$course['subject']} {$course['course_number']}</li>
                 {/foreach}
@@ -123,7 +123,7 @@
               </h3>
               {assign var='courses' value=getCourses($userInfo['minor'])}
               <div id="transfer-accordionWrapper" class="color-cccddd">
-                <ul class="pending connectedSortable" data-term="999999">    
+                <ul class="pending connectedSortable" data-term="888888">    
                   {foreach $courses as $course}
                     <li data-cid={$course['id']} data-credits={$course['credit_hours']} data-gpa={$course['GPA']}>{$course['subject']} {$course['course_number']}</li>
                   {/foreach}
@@ -138,10 +138,13 @@
 
           <!-- start: Transfer Credit Bucket -->
           <div>
-              <div id="bucket" class="color-cccddd">
-                <ul class="pending connectedSortable" data-term="000000"> 
+              <div id="transfer-bucket" class="bucket color-cccddd">
+                <ul class="sortable connectedSortable" data-term="000000"> 
                   {foreach $transfers as $course}
-	                  <li class="ui-state-default" data-cid={$course['id']}>{$course['subject']} {$course['course_number']}</li>  
+                    <li class="{$cssClasses}" data-cid={$course['id']} data-credits={$course['credit_hours']} data-gpa={$course['GPA']}>
+                      <div class="course-title">{$course['subject']} {$course['course_number']} - {$course['name']}</div>
+                      <img class="remove" src="/img/icons/x.png"></img>
+                    </li>
                   {/foreach}
                 </ul>
               </div>

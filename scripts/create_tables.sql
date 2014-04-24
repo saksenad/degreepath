@@ -7,8 +7,8 @@ CREATE TABLE courses (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   subject varchar(255) NOT NULL,
   course_number varchar(255) NOT NULL,
-  credit_hours int(10) unsigned NOT NULL,
   name varchar(255) NOT NULL,
+  credit_hours int(10) unsigned NOT NULL,
   GPA float NOT NULL,
   prereqs varchar(1023) NOT NULL,
   course_CRN int(11) NOT NULL,
@@ -22,12 +22,6 @@ CREATE TABLE term_availability (
   PRIMARY KEY (id)
 );
 
-/* 
-* We don't need to have a separate id specifically for this table.
-* the user_id serves as the primary key for the table. 
-* Also, it is on user_id since we will be making requests for queries based on user_id
-* in other words, the WHERE statement will contain user_id = ???
-*/
 CREATE TABLE user_semesters (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   user_id int(10) NOT NULL,
@@ -55,11 +49,11 @@ CREATE TABLE users (
   PRIMARY KEY (id)
 );
 
-
 CREATE TABLE enrollments (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   course_id int(10) unsigned NOT NULL,
   user_id int(10) NOT NULL,
   term_code varchar(255) NOT NULL,
+  PreReqSatisfied BOOL NOT NULL DEFAULT TRUE;
   PRIMARY KEY (id)
 );

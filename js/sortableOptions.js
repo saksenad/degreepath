@@ -49,7 +49,13 @@ var sortableOptions = {
           $("[data-cid="+classArray['id']+"]").addClass('preReqPassed').removeClass('preReqFailed');
         });
         $.each(preReqChangesJSON['fail'], function(index, classArray) {
-          $("[data-cid="+classArray['id']+"]").addClass('preReqFailed').removeClass('preReqPassed');
+          // If there is more than one -- there is also one in the accordion
+          if (($("[data-cid="+classArray['id']+"]")).length > 0) {
+            $("[data-cid="+classArray['id']+"]").eq(1).addClass('preReqFailed').removeClass('preReqPassed');
+          }
+          else {
+            $("[data-cid="+classArray['id']+"]").addClass('preReqFailed').removeClass('preReqPassed');
+          }
         });
 
         /* Update semester with correct number of credit hours */

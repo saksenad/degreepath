@@ -54,11 +54,15 @@ function updateClassGPA($classList) {
   global $conn;
   echo "Now I insert :)";
   foreach($classList as $class) {
+    $GPA = $class[3];
+    if ($GPA == 0.0) {
+      $GPA = 3.5;
+    }
     $query = sprintf("UPDATE courses
       SET GPA = %f
       WHERE subject = '%s' AND 
       course_number= %d ;
-      ",$class[3],$class[1],$class[2]);
+      ",$GPA,$class[1],$class[2]);
     echo $query;
     $result = mysqli_query($conn, $query) or die('Error, query failed');
   }

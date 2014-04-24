@@ -15,11 +15,11 @@ CREATE TABLE courses (
  PRIMARY KEY (id)
 );
 
-
 /*
 ALTER TABLE enrollments
 ADD PreReqSatisfied BOOL NOT NULL DEFAULT TRUE;
 */
+
 /*
 DROP TABLE IF EXISTS user_semesters;
 

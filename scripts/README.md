@@ -9,6 +9,12 @@ How to use these files:
 3) Run script to insert data from the json file into the database tables
       python insert_buzzapi_data.py
 
-4) Run commands to insert fake data into database (enrollments)
+4) Run script to scrape Buzz API and insert prerequisite data (takes a REALLY long time -- about 10-15 minutes)
+      php InsertPrerequisitesDetails.php
+
+5) Run script to scrape Course Critique and insert GPA data
+      php InsertCoursesGPA.php
+
+6) Run commands to insert fake data into database (users, enrollments)
       mysql -u root -p < fake_data.sql
 

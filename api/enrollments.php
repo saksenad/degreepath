@@ -81,6 +81,7 @@ function addEnrollment() {
     $course_id, $user_id, $term);
 
   $result = mysqli_query($conn, $query) or die('Error, query failed');
+  echo $query;
   echo getPreReqsFailedOnChange($course_id,$user_id);
 }
 
@@ -112,7 +113,7 @@ function getTransferEnrollments($user_id) {
   FROM enrollments
   INNER JOIN courses ON courses.id = enrollments.course_id
   WHERE enrollments.user_id =  %d
-  AND enrollments.term_code =  '%s';", $user_id, "000000");
+  AND enrollments.term_code =  '%s';", $user_id, "0");
   $result = mysqli_query($conn, $query) or die('Error, query failed');
 
   $enrollments = array();

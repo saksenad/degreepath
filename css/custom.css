@@ -71,6 +71,13 @@
   filter: alpha(opacity=40);
 }
 
+#transfer-bucket {
+  border: 2px solid #ccc;
+  float: right;
+  margin-top: 0px;
+  width: 200px;
+}
+
 #new-semester:hover {
   cursor: pointer;
   opacity: 0.7;

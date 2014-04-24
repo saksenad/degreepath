@@ -96,9 +96,15 @@ function createUser($username, $email, $password, $first_name, $last_name, $majo
 		$username, $email, checksum($username, $password), $first_name, $last_name, $major);
 	mysqli_query($conn, $query) or die("query: " . $query . " failed. " . mysqli_error($conn));
 
+  $user_id = mysqli_insert_id($conn);
+
+  $query = sprintf("INSERT INTO user_subjects(user_id, subject) VALUES ('%s', '%s')", $user_id, $major);
+	mysqli_query($conn, $query) or die("query: " . $query . " failed. " . mysqli_error($conn));
+
+
 	echo json_encode(array(
 		"username" => $username,
-		"uid" => mysqli_insert_id($conn)
+		"uid" => $user_id
 	));
 }
 
@@ -189,9 +195,24 @@ $app->post("/users/semesters", function() {
 	addUserSemester($user_id, $_POST['term_code']);
 });
 
-$app->delete("/users/:term_code", function($term_code) {
+$app->delete("/users/semesters/:term_code", function($term_code) {
   $user_id = $_SESSION['user_id'];
 	removeUserSemester($user_id, $term_code);
+});
+
+$app->get("/users/subjects", function() {
+  $user_id = $_SESSION['user_id'];
+	return json_encode(subjectsForUser($user_id));
+});
+
+$app->post("/users/subjects", function() {
+  $user_id = $_SESSION['user_id'];
+	addUserSubject($user_id, $_POST['subject']);
+});
+
+$app->delete("/users/subjects/:subject", function($subject) {
+  $user_id = $_SESSION['user_id'];
+	removeUserSubject($user_id, $subject);
 });
 
 
@@ -219,6 +240,32 @@ function semestersForUser($user_id) {
       }  
     }
 	return $semesters;
+}
+
+function addUserSubject($user_id, $subject) {
+	global $conn;
+	$query = sprintf("INSERT INTO user_subjects (user_id, subject)
+			  VALUES (%d, '%s')", $user_id, $subject);
+	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));
+}
+
+function removeUserSubject($user_id, $subject) {
+	global $conn; 
+	$query = sprintf("DELETE FROM user_subjects WHERE user_id = %d AND subject = '%s'", $user_id, $subject);
+	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));
+}
+
+function subjectsForUser($user_id) {
+	global $conn; 
+	$query = sprintf("SELECT subject FROM user_subjects WHERE user_id = %d", $user_id);
+	$result = mysqli_query($conn, $query) or die("Query: " . $query . "error" .  mysqli_error($conn));
+	$subjects = array();
+  if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        array_push($subjects, $row['subject']);
+      }  
+    }
+	return $subjects;
 }
 
 function getUserInfo($user_id) {

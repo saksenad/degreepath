@@ -23,27 +23,13 @@
       <!-- start: Accordian -->
       <div id="courses" class="span2">
         <div id="accordion">
-          
-            <h3>
-              <span class="subject">{$userInfo['major']}</span>
-              <img class="remove-subject" src="/img/icons/x.png"></img> 
-            </h3>
-            {assign var='courses' value=getCourses($userInfo['major'])}
-            <div id="accordionWrapper" class="color-cccddd">
-              <ul class="pending connectedSortable" data-term="999999">    
-                {foreach $courses as $course}
-                  <li data-cid={$course['id']} data-credits={$course['credit_hours']} data-gpa={$course['GPA']}>{$course['subject']} {$course['course_number']}</li>
-                {/foreach}
-              </ul>
-            </div>
 
-            <!-- start: User minor -->
-            {if $userInfo['minor']}
+            {foreach $user_subjects as $user_subject}          
               <h3>
-                <span class="subject">{$userInfo['minor']}</span>
+                <span class="subject">{$user_subject}</span>
                 <img class="remove-subject" src="/img/icons/x.png"></img> 
               </h3>
-              {assign var='courses' value=getCourses($userInfo['minor'])}
+              {assign var='courses' value=getCourses($user_subject)}
               <div id="accordionWrapper" class="color-cccddd">
                 <ul class="pending connectedSortable" data-term="999999">    
                   {foreach $courses as $course}
@@ -51,8 +37,7 @@
                   {/foreach}
                 </ul>
               </div>
-            {/if}
-            <!-- end: User Minor -->
+            {/foreach}
 
         </div>
       

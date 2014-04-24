@@ -45,6 +45,14 @@ $(document).ready(function(){
            type:'GET',
            success: function(courses){
 
+              $.ajax({
+                  url:"/api/users/subjects",
+                  type:'POST',
+                  data: {
+                    subject: selectedDepartment
+                  }
+              });
+
              /* Add a new accordion for the selected course */
              var newDiv = 
                '<h3> \
@@ -77,16 +85,24 @@ $(document).ready(function(){
 
              $("#accordion" ).accordion("refresh"); 
            }
-        });    
+        });  
     });
 });
 
 function removeAccordionSubject(x) {
-  // Remove list of courses
-  $(x).parent().next().remove();
+  var subject = $(x).parent().children().eq(1).text();
 
-  // Remove subject header
-  $(x).parent().remove();
+  $.ajax({
+    url:"/api/users/subjects/"+subject,
+    type:'DELETE',
+    success: function() {
+      // Remove list of courses
+      $(x).parent().next().remove();
+
+      // Remove subject header
+      $(x).parent().remove();
+    }
+  });
 } 
 
 $(document).ready(function(){

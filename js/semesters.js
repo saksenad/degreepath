@@ -72,7 +72,7 @@ function deleteSemester(x) {
   var term_code = $(x).parent().parent().children('ul').attr("data-term");
 
   $.ajax({
-    url:"/api/users/"+term_code,
+    url:"/api/users/semesters/"+term_code,
     type:'DELETE',
     success: function() {
       // Delete enrollments in bucket

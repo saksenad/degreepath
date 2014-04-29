@@ -81,7 +81,6 @@ function addEnrollment() {
     $course_id, $user_id, $term);
 
   $result = mysqli_query($conn, $query) or die('Error, query failed');
-  echo $query;
   echo getPreReqsFailedOnChange($course_id,$user_id);
 }
 

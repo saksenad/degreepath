@@ -14,12 +14,14 @@ if (isset($_SESSION['username']) &&
 $userInfo = getUserInfo($_SESSION['user_id']);
 $departments=getAllDepartments();
 $transfers=getTransferEnrollments($_SESSION['user_id']);
+$user_subjects = subjectsForUser($_SESSION['user_id']);
 
 $app = \Slim\Slim::getInstance();
 $app->render('profile.tpl', array(
 		'userInfo' => $userInfo ,
 		'departments' => $departments,
 		'transfers' => $transfers,
+		'user_subjects' => $user_subjects
 	));
 
 

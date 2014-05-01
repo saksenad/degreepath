@@ -102,11 +102,12 @@
           <!-- start: Accordian -->
           <div id="transfer-accordion">
           
+          {foreach $user_subjects as $user_subject}  
             <h3>
-              <span class="subject">{$userInfo['major']}</span>
+              <span class="subject">{$user_subject}</span>
               <img class="remove-subject" src="/img/icons/x.png"></img> 
             </h3>
-            {assign var='courses' value=getCourses($userInfo['major'])}
+            {assign var='courses' value=getCourses($user_subject)}
             <div id="transfer-accordionWrapper" class="color-cccddd">
               <ul class="pending connectedSortable" data-term="888888">    
                 {foreach $courses as $course}
@@ -114,6 +115,7 @@
                 {/foreach}
               </ul>
             </div>
+          {/foreach}
 
             <!-- start: User minor -->
             {if $userInfo['minor']}
